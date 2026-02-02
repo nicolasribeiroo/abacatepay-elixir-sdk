@@ -1,6 +1,6 @@
 defmodule AbacatePay.PublicMRR do
   @moduledoc ~S"""
-  Module that represents a Public MRR in AbacatePay.
+  Struct representing a AbacatePay Public MRR.
   """
   alias AbacatePay.Api
 

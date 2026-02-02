@@ -15,6 +15,7 @@ defmodule AbacatePay.MixProject do
       description: @description,
       package: package(),
       docs: docs(),
+      elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       name: @name,
       source_url: @source_url,
@@ -22,6 +23,9 @@ defmodule AbacatePay.MixProject do
       dialyzer: dialyxir()
     ]
   end
+
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(_), do: ["lib"]
 
   # Run "mix help compile.app" to learn about applications.
   def application do

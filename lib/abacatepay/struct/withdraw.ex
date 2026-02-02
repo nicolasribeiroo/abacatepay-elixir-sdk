@@ -1,6 +1,6 @@
 defmodule AbacatePay.Withdraw do
   @moduledoc ~S"""
-  Module that represents a withdraw in AbacatePay.
+  Struct representing a AbacatePay withdraw.
   """
 
   alias AbacatePay.{Api, Schema, Util}
