@@ -1,75 +1,105 @@
 defmodule AbacatePay.MixProject do
   use Mix.Project
 
-  @version "0.0.0"
-  @source_url "https://github.com/vicentesan/abacatepay-elixir-sdk"
+  @app :abacatepay
+  @description "Official AbacatePay Elixir SDK to integrate payments via PIX in a simple, secure and fast way."
+  @name "AbacatePay"
+  @version "0.2.0"
+  @source_url "https://github.com/AbacatePay/abacatepay-elixir-sdk"
 
   def project do
     [
-      app: :abacate_pay,
+      app: @app,
       version: @version,
-      elixir: "~> 1.12",
-      start_permanent: Mix.env() == :prod,
-      deps: deps(),
-      description: description(),
+      elixir: "~> 1.14",
+      description: @description,
       package: package(),
       docs: docs(),
-      name: "AbacatePay",
-      source_url: @source_url
+      start_permanent: Mix.env() == :prod,
+      name: @name,
+      source_url: @source_url,
+      deps: deps(),
+      dialyzer: dialyxir()
     ]
   end
 
+  # Run "mix help compile.app" to learn about applications.
   def application do
     [
+      mod: {AbacatePay.Application, []},
       extra_applications: [:logger]
     ]
   end
 
+  # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
+      {:nimble_options, "~> 1.1"},
       {:jason, "~> 1.4"},
-      {:httpoison, "~> 2.0"},
-      {:ex_doc, "~> 0.27", only: :dev, runtime: false},
-      {:credo, "~> 1.6", only: [:dev, :test], runtime: false}
-    ]
-  end
+      {:finch, "~> 0.21.0"},
 
-  defp description do
-    """
-    AbacatePay SDK - A payment processing library for integrating with AbacatePay's payment services.
-    """
+      # Dev and test dependencies
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 1.4.7", only: [:dev, :test], runtime: false},
+      {:ex_doc, "~> 0.40.0", only: :dev, runtime: false},
+      {:mimic, "~> 2.0", only: :test}
+    ]
   end
 
   defp package do
     [
-      name: "abacate_pay",
-      files: ~w(lib .formatter.exs mix.exs README* LICENSE* CHANGELOG*),
+      files: ["lib", "LICENSE", "mix.exs", "*.md"],
       licenses: ["MIT"],
       links: %{
+        "Changelog" => "#{@source_url}/blob/main/CHANGELOG.md",
         "GitHub" => @source_url,
-        "Changelog" => "#{@source_url}/blob/master/CHANGELOG.md"
+        "AbacatePay" => "https://www.abacatepay.com"
       }
     ]
   end
 
   defp docs do
     [
-      main: "readme",
       source_ref: "v#{@version}",
-      # canonical: "http://hexdocs.pm/abacate_pay",
-      extras: ["README.md", "CHANGELOG.md"],
+      source_url: @source_url,
+      main: "readme",
+      extras: [
+        "README.md",
+        "CHANGELOG.md"
+      ],
       groups_for_modules: [
-        "Resources": [
-          AbacatePay.Resources.Customer,
-          AbacatePay.Resources.Customers,
-          AbacatePay.Resources.Billing
+        API: [
+          AbacatePay.Api.Billing,
+          AbacatePay.Api.Coupon,
+          AbacatePay.Api.Customer,
+          AbacatePay.Api.Pix,
+          AbacatePay.Api.PublicMRR,
+          AbacatePay.Api.Store,
+          AbacatePay.Api.Withdraw
         ],
-        "Types": [
-          AbacatePay.Types.Customer,
-          AbacatePay.Types.Billing,
-          AbacatePay.Types.Product
-        ]
+        HTTP: [AbacatePay.HTTPClient, AbacatePay.ApiError],
+        Resources: [
+          AbacatePay.Billing,
+          AbacatePay.Coupon,
+          AbacatePay.Customer,
+          AbacatePay.Pix,
+          AbacatePay.Product,
+          AbacatePay.PublicMRR,
+          AbacatePay.Store,
+          AbacatePay.Withdraw
+        ],
+        Utilities: [AbacatePay.Util]
+      ],
+      skip_undefined_reference_warnings_on: [
+        "CHANGELOG.md"
       ]
     ]
   end
-end 
+
+  defp dialyxir do
+    [
+      plt_local_path: "priv/plts/project",
+      plt_core_path: "priv/plts/core"
+    ]
+  end
+end

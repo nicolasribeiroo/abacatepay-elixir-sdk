@@ -6,11 +6,43 @@
 
 Official **AbacatePay Elixir** SDK to integrate payments via PIX in a simple, secure and fast way.
 
+![Build Status](https://github.com/AbacatePay/abacatepay-elixir-sdk/actions/workflows/check.yml/badge.svg)
+[![Hex.pm](https://img.shields.io/hexpm/v/abacatepay.svg)](https://hex.pm/packages/abacatepay)
+[![Hex Docs](https://img.shields.io/badge/hex-docs-lightgreen.svg)](https://hexdocs.pm/abacatepay)
+
+</div>
+
+<div align="center">
+
 ## Installation
 
-<!-- Add `abacate_pay` to your list of dependencies in `mix.exs`:  -->
+The package can be installed by adding `abacatepay` to your list of dependencies in `mix.exs`:
 
-Not available yet.
+</div>
+
+```elixir
+def deps do
+  [
+    {:abacatepay, git: "https://github.com/AbacatePay/abacatepay-elixir-sdk", branch: "main", override: true}
+  ]
+end
+```
+
+<div align="center">
+
+## Configuration
+
+The SDK has a range of configuration options, but most applications will have a configuration that looks like the following:
+
+</div>
+
+```elixir
+# config/config.exs
+config :abacatepay,
+  api_key: "abc_dev_pWxM5GhSROzeerqmdkfu6mNN"
+```
+
+<div align="center">
 
 ## Features
 
@@ -23,14 +55,14 @@ Create a new customer in the AbacatePay system.
 </div>
 
 ```elixir
-  customer_data = %{
-  name: "John Doe",
-  taxId: "123.456.789-00",
-  email: "john@example.com",
-  cellphone: "+5511999999999"
-  }
-  
-  {:ok, customer} = AbacatePay.Resources.Customer.create(client, customer_data)
+  customer_data = [
+    name: "Daniel Lima",
+    tax_id: "123.456.789-01",
+    email: "daniel_lima@abacatepay.com",
+    cellphone: "+5511999999999"
+  ]
+
+  {:ok, customer} = AbacatePay.Customer.create(customer_data)
 ```
 
 <div align="center">
@@ -42,7 +74,7 @@ Retrieve a list of all customers.
 </div>
 
 ```elixir
-{:ok, customers} = AbacatePay.Resources.Customer.list(client)
+  {:ok, customers} = AbacatePay.Customer.list()
 ```
 
 <div align="center">
@@ -56,20 +88,43 @@ Create a new billing for a customer.
 </div>
 
 ```elixir
-billing_data = %{
-  amount: 1000, # Amount in cents
-  customerId: "cust_123", # Customer ID
-  methods: ["pix", "credit_card"],
-  products: [
-    %{
-    name: "Product Name",
-    amount: 1000,
-    quantity: 1
+  # The customer associated with the Billing
+  customer = %AbacatePay.Customer{
+    id: "cust_aebxkhDZNaMmJeKsy0AHS0FQ",
+    name: "Daniel Lima",
+    tax_id: "123.456.789-01",
+    email: "daniel_lima@abacatepay.com",
+    cellphone: "+5511999999999"
+  }
+
+  # The products to be included in the Billing
+  products = [
+    %AbacatePay.Product{
+      name: "Product 1",
+      price: 5000,
+      quantity: 1
+    },
+    %AbacatePay.Product{
+      name: "Product 2",
+      price: 3000,
+      quantity: 2
     }
   ]
-}
 
-{:ok, billing} = AbacatePay.Resources.Billing.create(client, billing_data)
+  billing_data = [
+    frequency: :one_time,
+    methods: [:pix, :card],
+    products: products,
+    customer: customer,
+    return_url: "https://example.com/return",
+    completion_url: "https://example.com/completion",
+    allow_coupons: true,
+    coupons: ["DEYVIN_20"],
+    external_id: "order_0001",
+    metadata: %{"notes" => "First order"}
+  ]
+
+  {:ok, billing} = AbacatePay.Billing.create(billing_data)
 ```
 
 <div align="center">
@@ -81,7 +136,7 @@ Retrieve a list of all billings.
 </div>
 
 ```elixir
-{:ok, billings} = AbacatePay.Resources.Billing.list(client)
+  {:ok, billings} = AbacatePay.Billing.list()
 ```
 
 <div align="center">
@@ -93,15 +148,13 @@ Retrieve a list of all billings.
 </div>
 
 ```elixir
-%Customer{
-  id: "cust_123",
-  metadata: %{
-    name: "John Doe",
-    taxId: "123.456.789-00",
-    email: "john@example.com",
+  %AbacatePay.Customer{
+    id: "cust_aebxkhDZNaMmJeKsy0AHS0FQ",
+    name: "Daniel Lima",
+    tax_id: "123.456.789-01",
+    email: "daniel_lima@abacatepay.com",
     cellphone: "+5511999999999"
   }
-}
 ```
 
 <div align="center">
@@ -111,26 +164,20 @@ Retrieve a list of all billings.
 </div>
 
 ```elixir
-%Billing{
-  id: "bill_123",
-  url: "https://pay.abacatepay.com/...",
-  amount: 1000,
-  devMode: false,
-  status: :pending,
-  frequency: :one_time,
-  metadata: %{},
-  publicId: "pub_123",
-  createdAt: "2024-03-20T...",
-  updatedAt: "2024-03-20T...",
-  methods: [:pix, :credit_card],
-  products: [
-    %{
-    name: "Product Name",
-    amount: 1000,
-    quantity: 1
-    }
-  ],
-  customer: %{...},
-  customerId: "cust_123"
-}
+  %AbacatePay.Billing{
+    id: "bill_aebxkhDZNaMmJeKsy0AHS0FQ",
+    frequency: :one_time,
+    url: "https://app.abacatepay.com/pay/bill_aebxkhDZNaMmJeKsy0AHS0FQ",
+    status: :pending,
+    dev_mode: false,
+    methods: [:pix, :card],
+    products: [%AbacatePay.Product{name: "Product 1", price: 5000, quantity: 1}, %AbacatePay.Product{name: "Product 2", price: 3000, quantity: 2}],
+    customer: %AbacatePay.Customer{id: "cust_aebxkhDZNaMmJeKsy0AHS0FQ", name: "Daniel Lima", cellphone: "+5511999999999", email: "daniel_lima@abacatepay.com", tax_id: "123.456.789-01"},
+    metadata: %{fee: 80, return_url: "https://example.com/return", completion_url: "https://example.com/completion"},
+    next_billing: nil,
+    allow_coupons: true,
+    coupons: ["DEYVIN_20"],
+    created_at: ~U[2026-01-01T12:00:00Z],
+    updated_at: ~U[2026-01-02T12:00:00Z]
+  }
 ```
