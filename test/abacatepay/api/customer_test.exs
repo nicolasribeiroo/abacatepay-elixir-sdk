@@ -5,6 +5,8 @@ defmodule AbacatePay.Api.CustomerTest do
   alias AbacatePay.Api.Customer
   alias AbacatePay.MockHTTPServer
 
+  @default_customer_id "cust_aebxkhDZNaMmJeKsy0AHS0FQ"
+
   describe "create_customer/1" do
     test "creates a customer successfully" do
       body = %{
@@ -15,7 +17,7 @@ defmodule AbacatePay.Api.CustomerTest do
       }
 
       expected_response = %{
-        "id" => "cust_aebxkhDZNaMmJeKsy0AHS0FQ",
+        "id" => @default_customer_id,
         "metadata" => %{
           "name" => "Daniel Lima",
           "cellphone" => "(11) 4002-8922",
@@ -27,7 +29,7 @@ defmodule AbacatePay.Api.CustomerTest do
       MockHTTPServer.stub_post("/customers/create", body, expected_response)
 
       assert {:ok, customer} = Customer.create_customer(body)
-      assert customer["id"] == "cust_aebxkhDZNaMmJeKsy0AHS0FQ"
+      assert customer["id"] == @default_customer_id
       assert customer["metadata"]["name"] == "Daniel Lima"
       assert customer["metadata"]["email"] == "daniel_lima@abacatepay.com"
       assert customer["metadata"]["cellphone"] == "(11) 4002-8922"
@@ -52,7 +54,7 @@ defmodule AbacatePay.Api.CustomerTest do
     test "lists all customers successfully" do
       expected_response = [
         %{
-          "id" => "cust_aebxkhDZNaMmJeKsy0AHS0FQ",
+          "id" => @default_customer_id,
           "metadata" => %{
             "name" => "Daniel Lima",
             "cellphone" => "(11) 4002-8922",

@@ -62,10 +62,10 @@ defmodule AbacatePay.Billing do
   """
   @type methods :: [:pix | :card]
 
-  @typedoc "List of products included in the charge."
+  @typedoc "List of products included in the charge. See structure reference `AbacatePay.Product`."
   @type products :: [Product.t()]
 
-  @typedoc "Customer you are billing. Optional. See structure reference [here](https://docs.abacatepay.com/pages/payment/client/reference.mdx)."
+  @typedoc "Customer you are billing. Optional. See structure reference `AbacatePay.Customer`."
   @type customer :: Customer.t() | nil
 
   @typedoc """
