@@ -8,9 +8,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- Adds detailed documentation for each supported resource (Customer and Billing)
+
 - Improve response handling and struct mapping
-- Customer resource with create and list operations
-- Billing resource with create and list operations
-- Basic HTTP client with authentication
-- Type definitions for Customer entities
+- Add coupon routes
+- Add pix routes
+- Add public mrr routes
+- Add store routes
+- Add withdraw routes
+- Add [nimble_options](https://github.com/dashbitco/nimble_options) for validation of function options
+- Added CI
+
+### Chores
+
+- Updated dependencies
+- Updated documentation
+- Switched from HTTPoison to [Finch](https://github.com/sneako/finch). Finch is more minimal and performant.
