@@ -20,10 +20,10 @@ erl_crash.dump
 *.ez
 
 # Ignore package tarball (built via "mix hex.build").
-abacate_pay-*.tar
+abacatepay-*.tar
 
-# Temporary files, for example, from tests.
-/tmp/
+# VSCode Elixir LS Extension
+.elixir_ls/
 
-# Environment variables
-.env 
+# Priv
+/priv/
