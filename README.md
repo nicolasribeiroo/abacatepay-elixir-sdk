@@ -1,13 +1,15 @@
-# AbacatePay SDK
+<div align="center">
 
-<!-- [![Hex.pm](https://img.shields.io/hexpm/v/abacate_pay.svg)](https://hex.pm/packages/abacate_pay) -->
-<!-- [![Documentation](https://img.shields.io/badge/documentation-gray)](https://hexdocs.pm/abacate_pay) -->
+# AbacatePay Elixir
 
-Elixir SDK for integrating with AbacatePay's payment services.
+<img src="https://res.cloudinary.com/dkok1obj5/image/upload/v1767631413/avo_clhmaf.png" width="100%" alt="AbacatePay Open Source"/>
+
+Official **AbacatePay Elixir** SDK to integrate payments via PIX in a simple, secure and fast way.
 
 ## Installation
 
 <!-- Add `abacate_pay` to your list of dependencies in `mix.exs`:  -->
+
 Not available yet.
 
 ## Features
@@ -15,7 +17,10 @@ Not available yet.
 ### Customer Operations
 
 #### Create Customer
+
 Create a new customer in the AbacatePay system.
+
+</div>
 
 ```elixir
   customer_data = %{
@@ -28,18 +33,27 @@ Create a new customer in the AbacatePay system.
   {:ok, customer} = AbacatePay.Resources.Customer.create(client, customer_data)
 ```
 
+<div align="center">
+
 #### List Customers
+
 Retrieve a list of all customers.
+
+</div>
 
 ```elixir
 {:ok, customers} = AbacatePay.Resources.Customer.list(client)
 ```
 
+<div align="center">
 
 ### Billing Operations
 
 #### Create Billing
+
 Create a new billing for a customer.
+
+</div>
 
 ```elixir
 billing_data = %{
@@ -58,16 +72,25 @@ billing_data = %{
 {:ok, billing} = AbacatePay.Resources.Billing.create(client, billing_data)
 ```
 
+<div align="center">
+
 #### List Billings
+
 Retrieve a list of all billings.
+
+</div>
 
 ```elixir
 {:ok, billings} = AbacatePay.Resources.Billing.list(client)
 ```
 
+<div align="center">
+
 ### Response Types
 
 #### Customer Response
+
+</div>
 
 ```elixir
 %Customer{
@@ -81,7 +104,11 @@ Retrieve a list of all billings.
 }
 ```
 
+<div align="center">
+
 #### Billing Response
+
+</div>
 
 ```elixir
 %Billing{
