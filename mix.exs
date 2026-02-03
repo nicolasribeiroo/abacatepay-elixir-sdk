@@ -4,7 +4,7 @@ defmodule AbacatePay.MixProject do
   @app :abacatepay
   @description "Official AbacatePay Elixir SDK to integrate payments via PIX in a simple, secure and fast way."
   @name "AbacatePay"
-  @version "0.2.0"
+  @version "0.3.0"
   @source_url "https://github.com/AbacatePay/abacatepay-elixir-sdk"
 
   def project do
