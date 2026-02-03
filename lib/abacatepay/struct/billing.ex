@@ -366,6 +366,7 @@ defmodule AbacatePay.Billing do
     }
 
     api_fields = %{
+      id: pretty_billing.id,
       frequency: Util.normalize_atom(pretty_billing.frequency),
       amount: pretty_billing.amount,
       url: pretty_billing.url,

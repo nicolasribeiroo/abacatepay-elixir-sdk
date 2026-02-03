@@ -31,6 +31,7 @@ defmodule AbacatePay.Schema.CouponTest do
 
       assert {:error, %NimbleOptions.ValidationError{key: key}} =
                NimbleOptions.validate(data, Coupon.create_coupon_request())
+
       assert key == :code
     end
 
@@ -42,6 +43,7 @@ defmodule AbacatePay.Schema.CouponTest do
 
       assert {:error, %NimbleOptions.ValidationError{key: key}} =
                NimbleOptions.validate(data, Coupon.create_coupon_request())
+
       assert key == :discount_kind
     end
 
@@ -53,6 +55,7 @@ defmodule AbacatePay.Schema.CouponTest do
 
       assert {:error, %NimbleOptions.ValidationError{key: key}} =
                NimbleOptions.validate(data, Coupon.create_coupon_request())
+
       assert key == :discount
     end
 
@@ -87,6 +90,7 @@ defmodule AbacatePay.Schema.CouponTest do
 
       assert {:error, %NimbleOptions.ValidationError{key: key}} =
                NimbleOptions.validate(data, Coupon.create_coupon_request())
+
       assert key == :discount_kind
     end
 
@@ -99,6 +103,7 @@ defmodule AbacatePay.Schema.CouponTest do
 
       assert {:error, %NimbleOptions.ValidationError{key: key}} =
                NimbleOptions.validate(data, Coupon.create_coupon_request())
+
       assert key == :code
     end
 
@@ -125,6 +130,7 @@ defmodule AbacatePay.Schema.CouponTest do
 
       assert {:error, %NimbleOptions.ValidationError{key: key}} =
                NimbleOptions.validate(data, Coupon.create_coupon_request())
+
       assert key == :discount
     end
 
@@ -137,6 +143,7 @@ defmodule AbacatePay.Schema.CouponTest do
 
       assert {:error, %NimbleOptions.ValidationError{key: key}} =
                NimbleOptions.validate(data, Coupon.create_coupon_request())
+
       assert key == :discount
     end
 
@@ -187,6 +194,7 @@ defmodule AbacatePay.Schema.CouponTest do
 
       assert {:error, %NimbleOptions.ValidationError{key: key}} =
                NimbleOptions.validate(data, Coupon.create_coupon_request())
+
       assert key == :notes
     end
 
@@ -212,6 +220,7 @@ defmodule AbacatePay.Schema.CouponTest do
 
       assert {:error, %NimbleOptions.ValidationError{key: key}} =
                NimbleOptions.validate(data, Coupon.create_coupon_request())
+
       assert key == :max_redeems
     end
 
@@ -266,6 +275,7 @@ defmodule AbacatePay.Schema.CouponTest do
 
       assert {:error, %NimbleOptions.ValidationError{key: key}} =
                NimbleOptions.validate(data, Coupon.create_coupon_request())
+
       assert key == :metadata
     end
 
