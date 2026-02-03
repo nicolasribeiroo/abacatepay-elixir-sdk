@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add withdraw routes
 - Add [nimble_options](https://github.com/dashbitco/nimble_options) for validation of function options
 - Added CI
+- Added Tests
 
 ### Chores
 
