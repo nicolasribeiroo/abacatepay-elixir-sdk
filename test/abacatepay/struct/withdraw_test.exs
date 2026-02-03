@@ -17,7 +17,7 @@ defmodule AbacatePay.WithdrawTest do
 
       assert withdraw.id == "wd_123"
       assert withdraw.status == :pending
-      assert withdraw.amount == 50_00
+      assert withdraw.amount == 50_000
     end
 
     test "creates Withdraw with nil values" do

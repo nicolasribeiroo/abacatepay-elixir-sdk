@@ -359,11 +359,18 @@ defmodule AbacatePay.Billing do
         datetime -> DateTime.to_iso8601(datetime)
       end
 
-    metadata = %{
-      "fee" => pretty_billing.metadata.fee,
-      "returnUrl" => pretty_billing.metadata.return_url,
-      "completionUrl" => pretty_billing.metadata.completion_url
-    }
+    metadata =
+      case pretty_billing.metadata do
+        nil ->
+          nil
+
+        metadata_struct ->
+          %{
+            "fee" => metadata_struct.fee,
+            "returnUrl" => metadata_struct.return_url,
+            "completionUrl" => metadata_struct.completion_url
+          }
+      end
 
     api_fields = %{
       id: pretty_billing.id,

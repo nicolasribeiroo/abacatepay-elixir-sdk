@@ -192,7 +192,7 @@ defmodule AbacatePay.BillingTest do
 
       assert {:ok, api_map} = Billing.build_api_billing(billing)
       assert api_map[:id] == "bill_123"
-      assert api_map[:frequency] == "one_time"
+      assert api_map[:frequency] == "ONE_TIME"
       assert api_map[:amount] == 50_000
       assert api_map[:status] == "PENDING"
     end

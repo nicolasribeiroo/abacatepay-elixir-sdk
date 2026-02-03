@@ -40,7 +40,7 @@ defmodule AbacatePay.CouponTest do
         "discount" => 10,
         "maxRedeems" => 100,
         "redeemsCount" => 5,
-        "status" => "active",
+        "status" => "DELETED",
         "devMode" => false,
         "notes" => "10% off on all products",
         "metadata" => %{"campaign" => "summer"},
@@ -54,7 +54,7 @@ defmodule AbacatePay.CouponTest do
       assert coupon.discount == 10
       assert coupon.max_redeems == 100
       assert coupon.redeems_count == 5
-      assert coupon.status == :active
+      assert coupon.status == :deleted
       assert coupon.dev_mode == false
       assert coupon.notes == "10% off on all products"
     end
@@ -66,7 +66,7 @@ defmodule AbacatePay.CouponTest do
         "discount" => 5_000,
         "maxRedeems" => 50,
         "redeemsCount" => 0,
-        "status" => "active",
+        "status" => "DISABLED",
         "devMode" => false,
         "notes" => "R$ 50 off",
         "metadata" => nil,
