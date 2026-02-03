@@ -1,6 +1,6 @@
 defmodule AbacatePay.Withdraw do
   @moduledoc ~S"""
-  Module that represents a withdraw in AbacatePay.
+  Struct representing an AbacatePay withdraw.
   """
 
   alias AbacatePay.{Api, Schema, Util}
@@ -267,6 +267,7 @@ defmodule AbacatePay.Withdraw do
       id: pretty_withdraw.id,
       status: Util.normalize_atom(pretty_withdraw.status),
       devMode: pretty_withdraw.dev_mode,
+      description: pretty_withdraw.description,
       receiptUrl: pretty_withdraw.receipt_url,
       kind: Util.normalize_atom(pretty_withdraw.kind),
       amount: pretty_withdraw.amount,

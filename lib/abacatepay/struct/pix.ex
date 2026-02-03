@@ -1,6 +1,6 @@
 defmodule AbacatePay.Pix do
   @moduledoc ~S"""
-  Module that represents a Pix QR Code in AbacatePay.
+  Struct representing an AbacatePay Pix QR Code.
   """
 
   alias AbacatePay.{Api, Customer, Schema, Util}

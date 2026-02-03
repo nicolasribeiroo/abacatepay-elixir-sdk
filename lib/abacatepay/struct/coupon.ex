@@ -1,6 +1,6 @@
 defmodule AbacatePay.Coupon do
   @moduledoc ~S"""
-  Module that represents a coupon in AbacatePay.
+  Struct representing an AbacatePay coupon.
   """
 
   alias AbacatePay.{Api, Schema, Util}

@@ -1,6 +1,6 @@
 defmodule AbacatePay.Product do
   @moduledoc ~S"""
-  Module that represents a product in AbacatePay.
+  Struct representing an AbacatePay Product.
   """
 
   defstruct [

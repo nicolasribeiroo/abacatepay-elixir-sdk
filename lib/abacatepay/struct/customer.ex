@@ -1,6 +1,6 @@
 defmodule AbacatePay.Customer do
   @moduledoc ~S"""
-  Module that represents a customer in AbacatePay.
+  Struct representing an AbacatePay customer.
   """
 
   alias AbacatePay.{Api, Schema}

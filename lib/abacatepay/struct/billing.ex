@@ -1,6 +1,6 @@
 defmodule AbacatePay.Billing do
   @moduledoc ~S"""
-  Module that represents a billing in AbacatePay.
+  Struct representing an AbacatePay billing.
   """
 
   alias AbacatePay.{Api, Customer, Product, Schema, Util}
@@ -62,10 +62,10 @@ defmodule AbacatePay.Billing do
   """
   @type methods :: [:pix | :card]
 
-  @typedoc "List of products included in the charge."
+  @typedoc "List of products included in the charge. See structure reference `AbacatePay.Product`."
   @type products :: [Product.t()]
 
-  @typedoc "Customer you are billing. Optional. See structure reference [here](https://docs.abacatepay.com/pages/payment/client/reference.mdx)."
+  @typedoc "Customer you are billing. Optional. See structure reference `AbacatePay.Customer`."
   @type customer :: Customer.t() | nil
 
   @typedoc """
@@ -359,13 +359,21 @@ defmodule AbacatePay.Billing do
         datetime -> DateTime.to_iso8601(datetime)
       end
 
-    metadata = %{
-      "fee" => pretty_billing.metadata.fee,
-      "returnUrl" => pretty_billing.metadata.return_url,
-      "completionUrl" => pretty_billing.metadata.completion_url
-    }
+    metadata =
+      case pretty_billing.metadata do
+        nil ->
+          nil
+
+        metadata_struct ->
+          %{
+            "fee" => metadata_struct.fee,
+            "returnUrl" => metadata_struct.return_url,
+            "completionUrl" => metadata_struct.completion_url
+          }
+      end
 
     api_fields = %{
+      id: pretty_billing.id,
       frequency: Util.normalize_atom(pretty_billing.frequency),
       amount: pretty_billing.amount,
       url: pretty_billing.url,
