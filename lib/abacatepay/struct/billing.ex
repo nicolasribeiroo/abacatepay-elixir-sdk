@@ -1,6 +1,6 @@
 defmodule AbacatePay.Billing do
   @moduledoc ~S"""
-  Struct representing a AbacatePay billing.
+  Struct representing an AbacatePay billing.
   """
 
   alias AbacatePay.{Api, Customer, Product, Schema, Util}

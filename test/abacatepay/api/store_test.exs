@@ -13,7 +13,7 @@ defmodule AbacatePay.Api.StoreTest do
         "balance" => %{
           "available" => 15_000,
           "pending" => 5_000,
-          "blocked" => 2000
+          "blocked" => 2_000
         }
       }
 
