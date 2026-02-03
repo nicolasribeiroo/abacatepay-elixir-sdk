@@ -7,17 +7,17 @@ defmodule AbacatePay.PixTest do
     test "creates a valid Pix struct" do
       pix = %Pix{
         id: "pix_123",
-        amount: 15000,
+        amount: 15_000,
         status: :pending,
         dev_mode: false,
         br_code: "test_code",
         br_code_base_64: "data:image/png;base64,test",
-        platform_fee: 50,
+        platform_fee: 80,
         description: "Test payment"
       }
 
       assert pix.id == "pix_123"
-      assert pix.amount == 15000
+      assert pix.amount == 15_000
       assert pix.status == :pending
     end
 
@@ -34,7 +34,7 @@ defmodule AbacatePay.PixTest do
     test "builds Pix from raw API data" do
       raw_data = %{
         "id" => "pix_charabc123456789",
-        "amount" => 1500,
+        "amount" => 1_500,
         "status" => "PAID",
         "devMode" => false,
         "brCode" => "00020126360014BR.GOV.BCB.PIX",
@@ -51,7 +51,7 @@ defmodule AbacatePay.PixTest do
 
       assert {:ok, pix} = Pix.build_pretty_pix_qrcode(raw_data)
       assert pix.id == "pix_charabc123456789"
-      assert pix.amount == 1500
+      assert pix.amount == 1_500
       assert pix.status == :paid
       assert pix.dev_mode == false
       assert pix.br_code == "00020126360014BR.GOV.BCB.PIX"
@@ -62,7 +62,7 @@ defmodule AbacatePay.PixTest do
     test "handles datetime parsing" do
       raw_data = %{
         "id" => "pix_123",
-        "amount" => 1000,
+        "amount" => 1_000,
         "status" => "PENDING",
         "devMode" => false,
         "brCode" => "code",
@@ -86,7 +86,7 @@ defmodule AbacatePay.PixTest do
     test "handles nil datetimes" do
       raw_data = %{
         "id" => "pix_123",
-        "amount" => 1000,
+        "amount" => 1_000,
         "status" => "PENDING",
         "devMode" => false,
         "brCode" => "code",
@@ -113,7 +113,7 @@ defmodule AbacatePay.PixTest do
       Enum.each(statuses, fn status ->
         raw_data = %{
           "id" => "pix_#{status}",
-          "amount" => 1000,
+          "amount" => 1_000,
           "status" => status,
           "devMode" => false,
           "brCode" => "code",
@@ -141,7 +141,7 @@ defmodule AbacatePay.PixTest do
         "devMode" => false,
         "brCode" => "code",
         "brCodeBase64" => "data",
-        "platformFee" => 50000,
+        "platformFee" => 80_000,
         "description" => "Large payment",
         "createdAt" => nil,
         "updatedAt" => nil,
@@ -153,7 +153,7 @@ defmodule AbacatePay.PixTest do
 
       assert {:ok, pix} = Pix.build_pretty_pix_qrcode(raw_data)
       assert pix.amount == 999_999_999
-      assert pix.platform_fee == 50000
+      assert pix.platform_fee == 80_000
     end
   end
 
@@ -161,7 +161,7 @@ defmodule AbacatePay.PixTest do
     test "builds API map from Pix struct" do
       pix = %Pix{
         id: "pix_123",
-        amount: 1500,
+        amount: 1_500,
         status: :paid,
         dev_mode: false,
         br_code: "test_code",
@@ -178,7 +178,7 @@ defmodule AbacatePay.PixTest do
 
       assert {:ok, api_map} = Pix.build_api_pix_qrcode(pix)
       assert api_map[:id] == "pix_123"
-      assert api_map[:amount] == 1500
+      assert api_map[:amount] == 1_500
       assert api_map[:status] == "PAID"
       assert api_map[:devMode] == false
       assert String.contains?(api_map[:createdAt], "2026-01-01")
@@ -187,7 +187,7 @@ defmodule AbacatePay.PixTest do
     test "handles nil datetimes in API format" do
       pix = %Pix{
         id: "pix_123",
-        amount: 1000,
+        amount: 1_000,
         status: :pending,
         dev_mode: false,
         br_code: "code",
@@ -213,12 +213,12 @@ defmodule AbacatePay.PixTest do
     test "converts raw data to struct and back" do
       raw_data = %{
         "id" => "pix_roundtrip",
-        "amount" => 5000,
+        "amount" => 5_000,
         "status" => "PENDING",
         "devMode" => true,
         "brCode" => "00020126360014BR.GOV.BCB.PIX",
         "brCodeBase64" => "data:image/png;base64,test",
-        "platformFee" => 25,
+        "platformFee" => 80,
         "description" => "Roundtrip test",
         "createdAt" => "2026-01-15T10:30:45Z",
         "updatedAt" => "2026-01-15T10:35:45Z",

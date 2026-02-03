@@ -11,8 +11,8 @@ defmodule AbacatePay.Api.StoreTest do
         "id" => "store_123456",
         "name" => "Minha Loja Online",
         "balance" => %{
-          "available" => 15000,
-          "pending" => 5000,
+          "available" => 15_000,
+          "pending" => 5_000,
           "blocked" => 2000
         }
       }
@@ -22,9 +22,9 @@ defmodule AbacatePay.Api.StoreTest do
       assert {:ok, store} = Store.get_store()
       assert store["id"] == "store_123456"
       assert store["name"] == "Minha Loja Online"
-      assert store["balance"]["available"] == 15000
-      assert store["balance"]["pending"] == 5000
-      assert store["balance"]["blocked"] == 2000
+      assert store["balance"]["available"] == 15_000
+      assert store["balance"]["pending"] == 5_000
+      assert store["balance"]["blocked"] == 2_000
     end
 
     test "retrieves store with zero balance" do
@@ -113,9 +113,9 @@ defmodule AbacatePay.Api.StoreTest do
         "name" => "Full Store",
         "email" => "full@store.com",
         "balance" => %{
-          "available" => 25000,
-          "pending" => 10000,
-          "blocked" => 3000
+          "available" => 25_000,
+          "pending" => 10_000,
+          "blocked" => 3_000
         }
       }
 
@@ -137,9 +137,9 @@ defmodule AbacatePay.Api.StoreTest do
         "id" => "store_map",
         "name" => "Map Store",
         "balance" => %{
-          "available" => 5000,
-          "pending" => 2000,
-          "blocked" => 1000
+          "available" => 5_000,
+          "pending" => 2_000,
+          "blocked" => 1_000
         }
       }
 

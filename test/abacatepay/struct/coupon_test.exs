@@ -63,7 +63,7 @@ defmodule AbacatePay.CouponTest do
       raw_data = %{
         "id" => "coupon_fixed",
         "discountKind" => "FIXED",
-        "discount" => 5000,
+        "discount" => 5_000,
         "maxRedeems" => 50,
         "redeemsCount" => 0,
         "status" => "active",
@@ -76,7 +76,7 @@ defmodule AbacatePay.CouponTest do
 
       assert {:ok, coupon} = Coupon.build_pretty_coupon(raw_data)
       assert coupon.discount_kind == :fixed
-      assert coupon.discount == 5000
+      assert coupon.discount == 5_000
     end
 
     test "handles datetime parsing" do
@@ -215,7 +215,7 @@ defmodule AbacatePay.CouponTest do
       coupon = %Coupon{
         id: "coupon_fixed",
         discount_kind: :fixed,
-        discount: 5000,
+        discount: 5_000,
         max_redeems: 50,
         redeems_count: 0,
         status: :active,

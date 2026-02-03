@@ -92,7 +92,7 @@ defmodule AbacatePay.UtilTest do
     end
 
     test "handles large payload" do
-      payload = String.duplicate("x", 10000)
+      payload = String.duplicate("x", 10_000)
 
       signature =
         :crypto.mac(:hmac, :sha256, Util.get_public_key(), payload)

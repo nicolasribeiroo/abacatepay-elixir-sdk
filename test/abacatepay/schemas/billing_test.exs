@@ -19,7 +19,7 @@ defmodule AbacatePay.Schema.BillingTest do
             name: "Product 1",
             description: "Description 1",
             quantity: 2,
-            price: 1500,
+            price: 1_500,
             external_id: "prod_001"
           }
         ],
@@ -43,7 +43,7 @@ defmodule AbacatePay.Schema.BillingTest do
             name: "Product 1",
             description: "Description 1",
             quantity: 2,
-            price: 1500,
+            price: 1_500,
             external_id: "prod_001"
           }
         ],
@@ -65,7 +65,7 @@ defmodule AbacatePay.Schema.BillingTest do
             name: "Product 1",
             description: "Description 1",
             quantity: 2,
-            price: 1500,
+            price: 1_500,
             external_id: "prod_001"
           }
         ],
@@ -102,7 +102,7 @@ defmodule AbacatePay.Schema.BillingTest do
             name: "Product 1",
             description: "Description 1",
             quantity: 2,
-            price: 1500,
+            price: 1_500,
             external_id: "prod_001"
           }
         ],
@@ -124,7 +124,7 @@ defmodule AbacatePay.Schema.BillingTest do
             name: "Product 1",
             description: "Description 1",
             quantity: 2,
-            price: 1500,
+            price: 1_500,
             external_id: "prod_001"
           }
         ],
@@ -145,7 +145,7 @@ defmodule AbacatePay.Schema.BillingTest do
             name: "Product 1",
             description: "Description 1",
             quantity: 2,
-            price: 1500,
+            price: 1_500,
             external_id: "prod_001"
           }
         ],
@@ -166,7 +166,7 @@ defmodule AbacatePay.Schema.BillingTest do
             name: "Product 1",
             description: "Description 1",
             quantity: 2,
-            price: 1500,
+            price: 1_500,
             external_id: "prod_001"
           }
         ],
@@ -189,7 +189,7 @@ defmodule AbacatePay.Schema.BillingTest do
             name: "Product 1",
             description: "Description 1",
             quantity: 2,
-            price: 1500,
+            price: 1_500,
             external_id: "prod_001"
           }
         ],
@@ -210,7 +210,7 @@ defmodule AbacatePay.Schema.BillingTest do
             name: "Product 1",
             description: "Description 1",
             quantity: 2,
-            price: 1500,
+            price: 1_500,
             external_id: "prod_001"
           }
         ],
@@ -232,7 +232,7 @@ defmodule AbacatePay.Schema.BillingTest do
             name: "Product 1",
             description: "Description 1",
             quantity: 2,
-            price: 1500,
+            price: 1_500,
             external_id: "prod_001"
           }
         ],
@@ -255,7 +255,7 @@ defmodule AbacatePay.Schema.BillingTest do
             name: "Product 1",
             description: "Description 1",
             quantity: 2,
-            price: 1500,
+            price: 1_500,
             external_id: "prod_001"
           }
         ],
@@ -276,14 +276,14 @@ defmodule AbacatePay.Schema.BillingTest do
             name: "Product 1",
             description: "Description 1",
             quantity: 2,
-            price: 1500,
+            price: 1_500,
             external_id: "prod_001"
           },
           %AbacatePay.Product{
             name: "Product 2",
             description: "Description 2",
             quantity: 1,
-            price: 3000,
+            price: 3_000,
             external_id: "prod_002"
           },
           %AbacatePay.Product{
@@ -320,7 +320,7 @@ defmodule AbacatePay.Schema.BillingTest do
               name: "Product 1",
               description: "Description 1",
               quantity: 2,
-              price: 1500,
+              price: 1_500,
               external_id: "prod_001"
             }
           ],
@@ -341,7 +341,7 @@ defmodule AbacatePay.Schema.BillingTest do
             name: "Product 1",
             description: "Description 1",
             quantity: 2,
-            price: 1500,
+            price: 1_500,
             external_id: "prod_001"
           }
         ],
@@ -368,7 +368,7 @@ defmodule AbacatePay.Schema.BillingTest do
             name: "Product 1",
             description: "Description 1",
             quantity: 2,
-            price: 1500,
+            price: 1_500,
             external_id: "prod_001"
           }
         ],
@@ -390,7 +390,7 @@ defmodule AbacatePay.Schema.BillingTest do
             name: "Product 1",
             description: "Description 1",
             quantity: 2,
-            price: 1500,
+            price: 1_500,
             external_id: "prod_001"
           }
         ],
@@ -413,7 +413,7 @@ defmodule AbacatePay.Schema.BillingTest do
             name: "Product 1",
             description: "Description 1",
             quantity: 2,
-            price: 1500,
+            price: 1_500,
             external_id: "prod_001"
           }
         ],
@@ -435,7 +435,7 @@ defmodule AbacatePay.Schema.BillingTest do
           name: "Product 1",
           description: "Description 1",
           quantity: 2,
-          price: 1500,
+          price: 1_500,
           external_id: "prod_001"
         },
         return_url: "https://example.com/return",
@@ -457,11 +457,11 @@ defmodule AbacatePay.Schema.BillingTest do
             name: "Product 1",
             description: "Description 1",
             quantity: 2,
-            price: 1500,
+            price: 1_500,
             external_id: "prod_001"
           }
         ],
-        return_url: 12345,
+        return_url: 12_345,
         completion_url: "https://example.com/completion"
       ]
 
@@ -492,7 +492,7 @@ defmodule AbacatePay.Schema.BillingTest do
             name: "Product 1",
             description: "Description 1",
             quantity: 2,
-            price: 1500,
+            price: 1_500,
             external_id: "prod_001"
           }
         ],

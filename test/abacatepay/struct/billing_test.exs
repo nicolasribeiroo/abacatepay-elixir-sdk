@@ -8,7 +8,7 @@ defmodule AbacatePay.BillingTest do
       billing = %Billing{
         id: "bill_123",
         frequency: :one_time,
-        amount: 50000,
+        amount: 50_000,
         url: "https://abacatepay.com/pay/bill_123",
         status: :pending,
         dev_mode: false,
@@ -18,7 +18,7 @@ defmodule AbacatePay.BillingTest do
 
       assert billing.id == "bill_123"
       assert billing.frequency == :one_time
-      assert billing.amount == 50000
+      assert billing.amount == 50_000
       assert billing.status == :pending
     end
 
@@ -36,17 +36,17 @@ defmodule AbacatePay.BillingTest do
       raw_data = %{
         "id" => "bill_123",
         "frequency" => "one_time",
-        "amount" => 50000,
+        "amount" => 50_000,
         "url" => "https://abacatepay.com/pay/bill_123",
         "status" => "PENDING",
         "devMode" => false,
         "methods" => ["pix", "card"],
         "products" => [
-          %{"externalId" => "prod_1", "quantity" => 1, "price" => 50000, "name" => "Product"}
+          %{"externalId" => "prod_1", "quantity" => 1, "price" => 50_000, "name" => "Product"}
         ],
         "customer" => nil,
         "metadata" => %{
-          "fee" => 100,
+          "fee" => 80,
           "returnUrl" => "https://example.com",
           "completionUrl" => "https://example.com/done"
         },
@@ -60,7 +60,7 @@ defmodule AbacatePay.BillingTest do
       assert {:ok, billing} = Billing.build_pretty_billing(raw_data)
       assert billing.id == "bill_123"
       assert billing.frequency == :one_time
-      assert billing.amount == 50000
+      assert billing.amount == 50_000
       assert billing.status == :pending
       assert billing.dev_mode == false
       assert :pix in billing.methods
@@ -72,7 +72,7 @@ defmodule AbacatePay.BillingTest do
       raw_data = %{
         "id" => "bill_123",
         "frequency" => "one_time",
-        "amount" => 50000,
+        "amount" => 50_000,
         "url" => "https://abacatepay.com/pay/bill_123",
         "status" => "PENDING",
         "devMode" => false,
@@ -96,7 +96,7 @@ defmodule AbacatePay.BillingTest do
       raw_data = %{
         "id" => "bill_123",
         "frequency" => "one_time",
-        "amount" => 50000,
+        "amount" => 50_000,
         "url" => "https://abacatepay.com/pay/bill_123",
         "status" => "PENDING",
         "devMode" => false,
@@ -123,7 +123,7 @@ defmodule AbacatePay.BillingTest do
         raw_data = %{
           "id" => "bill_#{status}",
           "frequency" => "one_time",
-          "amount" => 10000,
+          "amount" => 10_000,
           "url" => "https://abacatepay.com/pay",
           "status" => status,
           "devMode" => false,
@@ -147,14 +147,14 @@ defmodule AbacatePay.BillingTest do
       raw_data = %{
         "id" => "bill_123",
         "frequency" => "one_time",
-        "amount" => 50000,
+        "amount" => 50_000,
         "url" => "https://abacatepay.com/pay/bill_123",
         "status" => "PENDING",
         "devMode" => false,
         "methods" => ["pix"],
         "products" => [
-          %{"externalId" => "prod_1", "quantity" => 1, "price" => 20000, "name" => "Product 1"},
-          %{"externalId" => "prod_2", "quantity" => 2, "price" => 15000, "name" => "Product 2"}
+          %{"externalId" => "prod_1", "quantity" => 1, "price" => 20_000, "name" => "Product 1"},
+          %{"externalId" => "prod_2", "quantity" => 2, "price" => 15_000, "name" => "Product 2"}
         ],
         "customer" => nil,
         "metadata" => %{},
@@ -175,7 +175,7 @@ defmodule AbacatePay.BillingTest do
       billing = %Billing{
         id: "bill_123",
         frequency: :one_time,
-        amount: 50000,
+        amount: 50_000,
         url: "https://abacatepay.com/pay/bill_123",
         status: :pending,
         dev_mode: false,
@@ -193,7 +193,7 @@ defmodule AbacatePay.BillingTest do
       assert {:ok, api_map} = Billing.build_api_billing(billing)
       assert api_map[:id] == "bill_123"
       assert api_map[:frequency] == "one_time"
-      assert api_map[:amount] == 50000
+      assert api_map[:amount] == 50_000
       assert api_map[:status] == "PENDING"
     end
   end
@@ -203,13 +203,18 @@ defmodule AbacatePay.BillingTest do
       raw_data = %{
         "id" => "bill_roundtrip",
         "frequency" => "MULTIPLE_PAYMENTS",
-        "amount" => 30000,
+        "amount" => 30_000,
         "url" => "https://abacatepay.com/pay/bill_roundtrip",
         "status" => "PENDING",
         "devMode" => true,
         "methods" => ["PIX"],
         "products" => [
-          %{"externalId" => "prod_1", "quantity" => 1, "price" => 30000, "name" => "Test Product"}
+          %{
+            "externalId" => "prod_1",
+            "quantity" => 1,
+            "price" => 30_000,
+            "name" => "Test Product"
+          }
         ],
         "customer" => nil,
         "metadata" => %{},

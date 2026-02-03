@@ -169,7 +169,7 @@ defmodule AbacatePay.Schema.CustomerTest do
 
     test "rejects non-string name" do
       data = [
-        name: 12345,
+        name: 12_345,
         cellphone: "(11) 4002-8922",
         email: "daniel_lima@abacatepay.com",
         tax_id: "123.456.789-01"

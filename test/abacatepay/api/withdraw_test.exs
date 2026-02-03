@@ -12,7 +12,7 @@ defmodule AbacatePay.Api.WithdrawTest do
       body = %{
         externalId: "withdraw-1234",
         method: "PIX",
-        amount: 5000,
+        amount: 5_000,
         pix: %{
           type: "CPF",
           key: "123.456.789-01"
@@ -25,7 +25,7 @@ defmodule AbacatePay.Api.WithdrawTest do
         "devMode" => false,
         "receiptUrl" => "https://abacatepay.com/receipt/#{@default_withdraw_id}",
         "kind" => "WITHDRAW",
-        "amount" => 5000,
+        "amount" => 5_000,
         "platformFee" => 80,
         "externalId" => "withdraw-1234",
         "createdAt" => "2025-03-24T21:50:20.772Z",
@@ -37,7 +37,7 @@ defmodule AbacatePay.Api.WithdrawTest do
       assert {:ok, withdraw} = Withdraw.create_withdraw(body)
       assert withdraw["id"] == @default_withdraw_id
       assert withdraw["status"] == "PENDING"
-      assert withdraw["amount"] == 5000
+      assert withdraw["amount"] == 5_000
       assert withdraw["externalId"] == "withdraw-1234"
       assert withdraw["devMode"] == false
       assert withdraw["receiptUrl"] == "https://abacatepay.com/receipt/#{@default_withdraw_id}"
@@ -51,7 +51,7 @@ defmodule AbacatePay.Api.WithdrawTest do
       body = %{
         externalId: "withdraw-1234",
         method: "PIX",
-        amount: 5000,
+        amount: 5_000,
         pix: %{
           type: "CPF",
           key: "123.456.789-01"
@@ -65,7 +65,7 @@ defmodule AbacatePay.Api.WithdrawTest do
         "devMode" => false,
         "receiptUrl" => "https://abacatepay.com/receipt/#{@default_withdraw_id}",
         "kind" => "WITHDRAW",
-        "amount" => 5000,
+        "amount" => 5_000,
         "platformFee" => 80,
         "externalId" => "withdraw-1234",
         "createdAt" => "2025-03-24T21:50:20.772Z",
@@ -77,7 +77,7 @@ defmodule AbacatePay.Api.WithdrawTest do
       assert {:ok, withdraw} = Withdraw.create_withdraw(body)
       assert withdraw["id"] == @default_withdraw_id
       assert withdraw["status"] == "PENDING"
-      assert withdraw["amount"] == 5000
+      assert withdraw["amount"] == 5_000
       assert withdraw["externalId"] == "withdraw-1234"
       assert withdraw["devMode"] == false
       assert withdraw["receiptUrl"] == "https://abacatepay.com/receipt/#{@default_withdraw_id}"
@@ -155,7 +155,7 @@ defmodule AbacatePay.Api.WithdrawTest do
 
     test "handles missing required field" do
       body = %{
-        amount: 50000
+        amount: 50_000
       }
 
       error = MockHTTPServer.mock_error(422, "Missing required field: externalId")
@@ -167,7 +167,7 @@ defmodule AbacatePay.Api.WithdrawTest do
 
     test "handles server error" do
       body = %{
-        amount: 50000,
+        amount: 50_000,
         externalId: "withdraw_error"
       }
 
@@ -189,7 +189,7 @@ defmodule AbacatePay.Api.WithdrawTest do
         "devMode" => true,
         "receiptUrl" => "https://abacatepay.com/receipt/#{@default_withdraw_id}",
         "kind" => "WITHDRAW",
-        "amount" => 5000,
+        "amount" => 5_000,
         "platformFee" => 80,
         "createdAt" => "2025-03-24T21:50:20.772Z",
         "updatedAt" => "2025-03-24T21:50:20.772Z",
@@ -249,7 +249,7 @@ defmodule AbacatePay.Api.WithdrawTest do
         "devMode" => true,
         "receiptUrl" => "https://abacatepay.com/receipt/#{@default_withdraw_id}",
         "kind" => "WITHDRAW",
-        "amount" => 5000,
+        "amount" => 5_000,
         "platformFee" => 80,
         "createdAt" => "2025-03-24T21:50:20.772Z",
         "updatedAt" => "2025-03-24T21:50:20.772Z",
@@ -269,19 +269,19 @@ defmodule AbacatePay.Api.WithdrawTest do
       expected_response = [
         %{
           "id" => "wd_1",
-          "amount" => 10000,
+          "amount" => 10_000,
           "externalId" => "withdraw_1",
           "status" => "COMPLETED"
         },
         %{
           "id" => "wd_2",
-          "amount" => 25000,
+          "amount" => 25_000,
           "externalId" => "withdraw_2",
           "status" => "PENDING"
         },
         %{
           "id" => "wd_3",
-          "amount" => 5000,
+          "amount" => 5_000,
           "externalId" => "withdraw_3",
           "status" => "FAILED"
         }
@@ -322,7 +322,7 @@ defmodule AbacatePay.Api.WithdrawTest do
 
     test "lists withdraws with various amounts" do
       expected_response = [
-        %{"id" => "wd_small", "amount" => 10000},
+        %{"id" => "wd_small", "amount" => 10_000},
         %{"id" => "wd_medium", "amount" => 500_000},
         %{"id" => "wd_large", "amount" => 9_999_999}
       ]
@@ -331,7 +331,7 @@ defmodule AbacatePay.Api.WithdrawTest do
 
       assert {:ok, withdraws} = Withdraw.list_withdraws()
       amounts = Enum.map(withdraws, &Map.get(&1, "amount"))
-      assert 10000 in amounts
+      assert 10_000 in amounts
       assert 500_000 in amounts
       assert 9_999_999 in amounts
     end

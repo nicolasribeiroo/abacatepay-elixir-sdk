@@ -247,7 +247,7 @@ defmodule AbacatePay.Api.CouponTest do
     test "handles coupons with different discount kinds" do
       expected_response = [
         %{"id" => "coupon_percentage", "discountKind" => "PERCENTAGE", "discount" => 20},
-        %{"id" => "coupon_fixed", "discountKind" => "FIXED", "discount" => 1000}
+        %{"id" => "coupon_fixed", "discountKind" => "FIXED", "discount" => 1_000}
       ]
 
       MockHTTPServer.stub_get("/coupon/list", expected_response)
@@ -279,7 +279,7 @@ defmodule AbacatePay.Api.CouponTest do
         %{"id" => "coupon_1", "discount" => 1},
         %{"id" => "coupon_50", "discount" => 50},
         %{"id" => "coupon_100", "discount" => 100},
-        %{"id" => "coupon_5000", "discount" => 5000}
+        %{"id" => "coupon_5000", "discount" => 5_000}
       ]
 
       MockHTTPServer.stub_get("/coupon/list", expected_response)
@@ -289,7 +289,7 @@ defmodule AbacatePay.Api.CouponTest do
       assert 1 in discounts
       assert 50 in discounts
       assert 100 in discounts
-      assert 5000 in discounts
+      assert 5_000 in discounts
     end
 
     test "handles error when listing coupons - unauthorized" do

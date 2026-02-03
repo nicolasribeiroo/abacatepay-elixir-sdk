@@ -10,14 +10,14 @@ defmodule AbacatePay.WithdrawTest do
         status: :pending,
         description: "Monthly withdrawal",
         dev_mode: false,
-        amount: 50000,
-        platform_fee: 100,
+        amount: 50_000,
+        platform_fee: 80,
         external_id: "ext_123"
       }
 
       assert withdraw.id == "wd_123"
       assert withdraw.status == :pending
-      assert withdraw.amount == 50000
+      assert withdraw.amount == 50_00
     end
 
     test "creates Withdraw with nil values" do
@@ -38,8 +38,8 @@ defmodule AbacatePay.WithdrawTest do
         "devMode" => false,
         "receiptUrl" => nil,
         "kind" => "withdraw",
-        "amount" => 50000,
-        "platformFee" => 100,
+        "amount" => 50_000,
+        "platformFee" => 80,
         "externalId" => "ext_123",
         "createdAt" => "2026-01-01T12:00:00Z",
         "updatedAt" => "2026-01-01T12:00:00Z"
@@ -50,8 +50,8 @@ defmodule AbacatePay.WithdrawTest do
       assert withdraw.status == :pending
       assert withdraw.description == "Monthly withdrawal"
       assert withdraw.dev_mode == false
-      assert withdraw.amount == 50000
-      assert withdraw.platform_fee == 100
+      assert withdraw.amount == 50_000
+      assert withdraw.platform_fee == 80
       assert withdraw.external_id == "ext_123"
     end
 
@@ -63,7 +63,7 @@ defmodule AbacatePay.WithdrawTest do
         "devMode" => false,
         "receiptUrl" => nil,
         "kind" => "withdraw",
-        "amount" => 50000,
+        "amount" => 50_000,
         "platformFee" => 0,
         "externalId" => "ext_123",
         "createdAt" => "2026-01-15T10:30:45Z",
@@ -83,7 +83,7 @@ defmodule AbacatePay.WithdrawTest do
         "devMode" => false,
         "receiptUrl" => nil,
         "kind" => "withdraw",
-        "amount" => 50000,
+        "amount" => 50_000,
         "platformFee" => 0,
         "externalId" => "ext_123",
         "createdAt" => nil,
@@ -106,7 +106,7 @@ defmodule AbacatePay.WithdrawTest do
           "devMode" => false,
           "receiptUrl" => nil,
           "kind" => "WITHDRAW",
-          "amount" => 10000,
+          "amount" => 10_000,
           "platformFee" => 0,
           "externalId" => "ext_123",
           "createdAt" => nil,
@@ -127,7 +127,7 @@ defmodule AbacatePay.WithdrawTest do
         "receiptUrl" => "https://example.com/receipt",
         "kind" => "withdraw",
         "amount" => 999_999_999,
-        "platformFee" => 50000,
+        "platformFee" => 80_000,
         "externalId" => "ext_large",
         "createdAt" => nil,
         "updatedAt" => nil
@@ -135,7 +135,7 @@ defmodule AbacatePay.WithdrawTest do
 
       assert {:ok, withdraw} = Withdraw.build_pretty_withdraw(raw_data)
       assert withdraw.amount == 999_999_999
-      assert withdraw.platform_fee == 50000
+      assert withdraw.platform_fee == 80_000
     end
 
     test "handles receipt URL" do
@@ -146,7 +146,7 @@ defmodule AbacatePay.WithdrawTest do
         "devMode" => false,
         "receiptUrl" => "https://example.com/receipt/wd_receipt",
         "kind" => "withdraw",
-        "amount" => 50000,
+        "amount" => 50_000,
         "platformFee" => 0,
         "externalId" => "ext_123",
         "createdAt" => nil,
@@ -167,8 +167,8 @@ defmodule AbacatePay.WithdrawTest do
         dev_mode: false,
         receipt_url: nil,
         kind: :withdraw,
-        amount: 50000,
-        platform_fee: 100,
+        amount: 50_000,
+        platform_fee: 80,
         external_id: "ext_123",
         created_at: ~U[2026-01-01T12:00:00Z],
         updated_at: ~U[2026-01-01T12:00:00Z]
@@ -179,8 +179,8 @@ defmodule AbacatePay.WithdrawTest do
       assert api_map[:status] == "PENDING"
       assert api_map[:description] == "Monthly withdrawal"
       assert api_map[:devMode] == false
-      assert api_map[:amount] == 50000
-      assert api_map[:platformFee] == 100
+      assert api_map[:amount] == 50_000
+      assert api_map[:platformFee] == 80
       assert api_map[:externalId] == "ext_123"
     end
 
@@ -192,7 +192,7 @@ defmodule AbacatePay.WithdrawTest do
         dev_mode: false,
         receipt_url: nil,
         kind: :withdraw,
-        amount: 50000,
+        amount: 50_000,
         platform_fee: 0,
         external_id: "ext_123",
         created_at: ~U[2026-01-15T10:30:45Z],
@@ -212,7 +212,7 @@ defmodule AbacatePay.WithdrawTest do
         dev_mode: false,
         receipt_url: nil,
         kind: :withdraw,
-        amount: 50000,
+        amount: 50_000,
         platform_fee: 0,
         external_id: "ext_123",
         created_at: nil,
@@ -234,8 +234,8 @@ defmodule AbacatePay.WithdrawTest do
         "devMode" => true,
         "receiptUrl" => "https://example.com/receipt",
         "kind" => "withdraw",
-        "amount" => 75000,
-        "platformFee" => 75,
+        "amount" => 75_000,
+        "platformFee" => 80,
         "externalId" => "ext_roundtrip",
         "createdAt" => "2026-01-15T10:30:45Z",
         "updatedAt" => "2026-01-15T10:35:45Z"

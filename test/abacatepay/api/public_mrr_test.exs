@@ -35,14 +35,14 @@ defmodule AbacatePay.Api.PublicMRRTest do
     test "retrieves MRR with large values" do
       expected_response = %{
         "mrr" => 9_999_999_999,
-        "totalActiveSubscriptions" => 50000
+        "totalActiveSubscriptions" => 50_000
       }
 
       MockHTTPServer.stub_get("/public-mrr/mrr", expected_response)
 
       assert {:ok, result} = PublicMRR.get_mrr()
       assert result["mrr"] == 9_999_999_999
-      assert result["totalActiveSubscriptions"] == 50000
+      assert result["totalActiveSubscriptions"] == 50_000
     end
 
     test "handles unauthorized error" do
@@ -229,7 +229,7 @@ defmodule AbacatePay.Api.PublicMRRTest do
 
       expected_response = %{
         "totalRevenue" => 9_999_999_999,
-        "totalTransactions" => 10000,
+        "totalTransactions" => 10_000,
         "transactionsPerDay" => %{
           "2024-06-01" => %{"amount" => 500_000, "count" => 50},
           "2024-06-02" => %{"amount" => 600_000, "count" => 60},
@@ -242,7 +242,7 @@ defmodule AbacatePay.Api.PublicMRRTest do
 
       assert {:ok, result} = PublicMRR.get_revenue(start_date, end_date)
       assert result["totalRevenue"] == 9_999_999_999
-      assert result["totalTransactions"] == 10000
+      assert result["totalTransactions"] == 10_000
     end
 
     test "handles missing date parameter error" do
@@ -301,8 +301,8 @@ defmodule AbacatePay.Api.PublicMRRTest do
         "totalRevenue" => 80_000,
         "totalTransactions" => 20,
         "transactionsPerDay" => %{
-          "2024-04-01" => %{"amount" => 3000, "count" => 1},
-          "2024-04-02" => %{"amount" => 4000, "count" => 2}
+          "2024-04-01" => %{"amount" => 3_000, "count" => 1},
+          "2024-04-02" => %{"amount" => 4_000, "count" => 2}
         }
       }
 

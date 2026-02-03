@@ -16,7 +16,7 @@ defmodule AbacatePay.Schema.WithdrawTest do
       data = [
         external_id: @default_withdraw_id,
         method: :pix,
-        amount: 50000,
+        amount: 50_000,
         pix: %{
           key: "test@example.com",
           type: :email
@@ -26,14 +26,14 @@ defmodule AbacatePay.Schema.WithdrawTest do
       assert {:ok, result} = NimbleOptions.validate(data, Withdraw.create_withdraw_request())
       assert result[:external_id] == @default_withdraw_id
       assert result[:method] == :pix
-      assert result[:amount] == 50000
+      assert result[:amount] == 50_000
       assert is_map(result[:pix])
     end
 
     test "rejects missing external_id" do
       data = [
         method: :pix,
-        amount: 50000,
+        amount: 50_000,
         pix: %{key: "test@example.com", type: :email}
       ]
 
@@ -46,7 +46,7 @@ defmodule AbacatePay.Schema.WithdrawTest do
     test "rejects missing method" do
       data = [
         external_id: "withdraw_123",
-        amount: 50000,
+        amount: 50_000,
         pix: %{key: "test@example.com", type: :email}
       ]
 
@@ -73,7 +73,7 @@ defmodule AbacatePay.Schema.WithdrawTest do
       data = [
         external_id: "withdraw_123",
         method: :pix,
-        amount: 50000
+        amount: 50_000
       ]
 
       assert {:error, %NimbleOptions.ValidationError{key: key}} =
@@ -86,7 +86,7 @@ defmodule AbacatePay.Schema.WithdrawTest do
       data = [
         external_id: "withdraw_123",
         method: :pix,
-        amount: 50000,
+        amount: 50_000,
         pix: %{key: "test@example.com", type: :email}
       ]
 
@@ -98,7 +98,7 @@ defmodule AbacatePay.Schema.WithdrawTest do
       data = [
         external_id: "withdraw_123",
         method: :invalid_method,
-        amount: 50000,
+        amount: 50_000,
         pix: %{key: "test@example.com", type: :email}
       ]
 
@@ -110,9 +110,9 @@ defmodule AbacatePay.Schema.WithdrawTest do
 
     test "rejects non-string external_id" do
       data = [
-        external_id: 12345,
+        external_id: 12_345,
         method: :pix,
-        amount: 50000,
+        amount: 50_000,
         pix: %{key: "test@example.com", type: :email}
       ]
 
@@ -134,7 +134,7 @@ defmodule AbacatePay.Schema.WithdrawTest do
         data = [
           external_id: id,
           method: :pix,
-          amount: 50000,
+          amount: 50_000,
           pix: %{key: "test@example.com", type: :email}
         ]
 
@@ -143,7 +143,7 @@ defmodule AbacatePay.Schema.WithdrawTest do
     end
 
     test "accepts various valid amounts" do
-      valid_amounts = [1, 100, 10000, 50000, 999_999_999, 1_000_000_000]
+      valid_amounts = [1, 100, 10_000, 50_000, 999_999_999, 1_000_000_000]
 
       Enum.each(valid_amounts, fn amount ->
         data = [
@@ -189,7 +189,7 @@ defmodule AbacatePay.Schema.WithdrawTest do
       data = [
         external_id: "withdraw_123",
         method: :pix,
-        amount: 50000,
+        amount: 50_000,
         pix: %{key: "12345678901", type: :cpf}
       ]
 
@@ -201,7 +201,7 @@ defmodule AbacatePay.Schema.WithdrawTest do
       data = [
         external_id: "withdraw_123",
         method: :pix,
-        amount: 50000,
+        amount: 50_000,
         pix: %{key: "12345678901234", type: :cnpj}
       ]
 
@@ -213,7 +213,7 @@ defmodule AbacatePay.Schema.WithdrawTest do
       data = [
         external_id: "withdraw_123",
         method: :pix,
-        amount: 50000,
+        amount: 50_000,
         pix: %{key: "+5511999999999", type: :phone}
       ]
 
@@ -225,7 +225,7 @@ defmodule AbacatePay.Schema.WithdrawTest do
       data = [
         external_id: "withdraw_123",
         method: :pix,
-        amount: 50000,
+        amount: 50_000,
         pix: %{key: "test@example.com", type: :email}
       ]
 
@@ -237,7 +237,7 @@ defmodule AbacatePay.Schema.WithdrawTest do
       data = [
         external_id: "withdraw_123",
         method: :pix,
-        amount: 50000,
+        amount: 50_000,
         pix: %{key: "random-key-123", type: :random}
       ]
 
@@ -249,7 +249,7 @@ defmodule AbacatePay.Schema.WithdrawTest do
       data = [
         external_id: "withdraw_123",
         method: :pix,
-        amount: 50000,
+        amount: 50_000,
         pix: %{key: "12345678901234567890", type: :br_code}
       ]
 
@@ -261,7 +261,7 @@ defmodule AbacatePay.Schema.WithdrawTest do
       data = [
         external_id: "withdraw_123",
         method: :pix,
-        amount: 50000,
+        amount: 50_000,
         pix: %{key: "test", type: :invalid}
       ]
 
@@ -275,7 +275,7 @@ defmodule AbacatePay.Schema.WithdrawTest do
       data = [
         external_id: "withdraw_123",
         method: :pix,
-        amount: 50000,
+        amount: 50_000,
         pix: %{type: :email}
       ]
 
@@ -289,7 +289,7 @@ defmodule AbacatePay.Schema.WithdrawTest do
       data = [
         external_id: "withdraw_123",
         method: :pix,
-        amount: 50000,
+        amount: 50_000,
         pix: %{key: "test@example.com"}
       ]
 
@@ -303,8 +303,8 @@ defmodule AbacatePay.Schema.WithdrawTest do
       data = [
         external_id: "withdraw_123",
         method: :pix,
-        amount: 50000,
-        pix: %{key: 12345, type: :email}
+        amount: 50_000,
+        pix: %{key: 12_345, type: :email}
       ]
 
       assert {:error, %NimbleOptions.ValidationError{key: key}} =
@@ -317,7 +317,7 @@ defmodule AbacatePay.Schema.WithdrawTest do
       data = [
         external_id: "withdraw_123",
         method: :pix,
-        amount: 50000,
+        amount: 50_000,
         pix: %{key: "test@example.com", type: "email"}
       ]
 
@@ -331,7 +331,7 @@ defmodule AbacatePay.Schema.WithdrawTest do
       data = [
         external_id: "withdraw_123",
         method: :pix,
-        amount: 50000,
+        amount: 50_000,
         pix: %{key: "test@example.com", type: :email},
         description: "Monthly withdrawal"
       ]
@@ -344,7 +344,7 @@ defmodule AbacatePay.Schema.WithdrawTest do
       data = [
         external_id: "withdraw_123",
         method: :pix,
-        amount: 50000,
+        amount: 50_000,
         pix: %{key: "test@example.com", type: :email},
         description: ""
       ]
@@ -358,7 +358,7 @@ defmodule AbacatePay.Schema.WithdrawTest do
       data = [
         external_id: "withdraw_123",
         method: :pix,
-        amount: 50000,
+        amount: 50_000,
         pix: %{key: "test@example.com", type: :email},
         description: long_desc
       ]
@@ -371,9 +371,9 @@ defmodule AbacatePay.Schema.WithdrawTest do
       data = [
         external_id: "withdraw_123",
         method: :pix,
-        amount: 50000,
+        amount: 50_000,
         pix: %{key: "test@example.com", type: :email},
-        description: 12345
+        description: 12_345
       ]
 
       assert {:error, %NimbleOptions.ValidationError{key: key}} =
@@ -386,7 +386,7 @@ defmodule AbacatePay.Schema.WithdrawTest do
       data = [
         external_id: "withdraw_123",
         method: :pix,
-        amount: 50000,
+        amount: 50_000,
         pix: %{key: "test@example.com", type: :email},
         description: "Monthly withdrawal"
       ]
@@ -394,7 +394,7 @@ defmodule AbacatePay.Schema.WithdrawTest do
       assert {:ok, result} = NimbleOptions.validate(data, Withdraw.create_withdraw_request())
       assert result[:external_id] == "withdraw_123"
       assert result[:method] == :pix
-      assert result[:amount] == 50000
+      assert result[:amount] == 50_000
       assert result[:description] == "Monthly withdrawal"
     end
 
@@ -402,7 +402,7 @@ defmodule AbacatePay.Schema.WithdrawTest do
       data = [
         external_id: "withdraw_123",
         method: :pix,
-        amount: 50000,
+        amount: 50_000,
         pix: %{key: "test@example.com", type: :email}
       ]
 
@@ -413,7 +413,7 @@ defmodule AbacatePay.Schema.WithdrawTest do
       data = [
         external_id: "withdraw-2024_123-test",
         method: :pix,
-        amount: 50000,
+        amount: 50_000,
         pix: %{key: "test@example.com", type: :email}
       ]
 
@@ -425,7 +425,7 @@ defmodule AbacatePay.Schema.WithdrawTest do
       data = [
         external_id: "withdraw_123",
         method: :pix,
-        amount: 50000,
+        amount: 50_000,
         pix: %{key: "test@example.com", type: :email},
         description: "Withdrawal €5,000 #monthly 2024"
       ]
@@ -441,7 +441,7 @@ defmodule AbacatePay.Schema.WithdrawTest do
         data = [
           external_id: "withdraw_#{pix_type}",
           method: :pix,
-          amount: 10000,
+          amount: 10_000,
           pix: %{key: "value_for_#{pix_type}", type: pix_type}
         ]
 

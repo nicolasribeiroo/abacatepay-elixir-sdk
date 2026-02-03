@@ -6,7 +6,7 @@ defmodule AbacatePay.PublicMRRTest do
   describe "struct/0" do
     test "creates a valid PublicMRR struct" do
       public_mrr = %PublicMRR{
-        mrr: 50000,
+        mrr: 50_000,
         total_active_subscriptions: 10,
         name: "My Store",
         total_revenue: 150_000,
@@ -16,7 +16,7 @@ defmodule AbacatePay.PublicMRRTest do
         created_at: nil
       }
 
-      assert public_mrr.mrr == 50000
+      assert public_mrr.mrr == 50_000
       assert public_mrr.total_active_subscriptions == 10
       assert public_mrr.name == "My Store"
       assert public_mrr.total_revenue == 150_000
@@ -34,21 +34,21 @@ defmodule AbacatePay.PublicMRRTest do
   describe "build_pretty_public_mrr/1" do
     test "builds PublicMRR from raw API data" do
       raw_data = %{
-        "mrr" => 50000,
+        "mrr" => 50_000,
         "totalActiveSubscriptions" => 10,
         "name" => "My Store",
         "totalRevenue" => 150_000,
         "totalTransactions" => 45,
         "transactionsPerDay" => %{
-          "2024-01-15" => %{"amount" => 5000, "count" => 3},
-          "2024-01-16" => %{"amount" => 3000, "count" => 2}
+          "2024-01-15" => %{"amount" => 5_000, "count" => 3},
+          "2024-01-16" => %{"amount" => 3_000, "count" => 2}
         },
         "website" => "https://mystore.com",
         "createdAt" => "2023-12-01T12:00:00Z"
       }
 
       assert {:ok, mrr} = PublicMRR.build_pretty_public_mrr(raw_data)
-      assert mrr.mrr == 50000
+      assert mrr.mrr == 50_000
       assert mrr.total_active_subscriptions == 10
       assert mrr.name == "My Store"
       assert mrr.total_revenue == 150_000
@@ -58,14 +58,14 @@ defmodule AbacatePay.PublicMRRTest do
 
     test "handles transactions_per_day parsing" do
       raw_data = %{
-        "mrr" => 10000,
+        "mrr" => 10_000,
         "totalActiveSubscriptions" => 5,
         "name" => "Test Store",
-        "totalRevenue" => 50000,
+        "totalRevenue" => 50_000,
         "totalTransactions" => 20,
         "transactionsPerDay" => %{
-          "2024-01-15" => %{"amount" => 5000, "count" => 3},
-          "2024-01-16" => %{"amount" => 3000, "count" => 2}
+          "2024-01-15" => %{"amount" => 5_000, "count" => 3},
+          "2024-01-16" => %{"amount" => 3_000, "count" => 2}
         },
         "website" => nil,
         "createdAt" => nil
@@ -73,7 +73,7 @@ defmodule AbacatePay.PublicMRRTest do
 
       assert {:ok, mrr} = PublicMRR.build_pretty_public_mrr(raw_data)
       assert is_map(mrr.transactions_per_day)
-      assert mrr.transactions_per_day["2024-01-15"].amount == 5000
+      assert mrr.transactions_per_day["2024-01-15"].amount == 5_000
       assert mrr.transactions_per_day["2024-01-15"].count == 3
       assert mrr.transactions_per_day["2024-01-16"].amount == 3000
       assert mrr.transactions_per_day["2024-01-16"].count == 2
@@ -98,10 +98,10 @@ defmodule AbacatePay.PublicMRRTest do
 
     test "handles nil transactions_per_day" do
       raw_data = %{
-        "mrr" => 10000,
+        "mrr" => 10_000,
         "totalActiveSubscriptions" => 5,
         "name" => "Test Store",
-        "totalRevenue" => 50000,
+        "totalRevenue" => 50_000,
         "totalTransactions" => 20,
         "transactionsPerDay" => nil,
         "website" => "https://example.com",
@@ -114,10 +114,10 @@ defmodule AbacatePay.PublicMRRTest do
 
     test "handles datetime parsing" do
       raw_data = %{
-        "mrr" => 10000,
+        "mrr" => 10_000,
         "totalActiveSubscriptions" => 5,
         "name" => "Test Store",
-        "totalRevenue" => 50000,
+        "totalRevenue" => 50_000,
         "totalTransactions" => 20,
         "transactionsPerDay" => %{},
         "website" => nil,
@@ -130,10 +130,10 @@ defmodule AbacatePay.PublicMRRTest do
 
     test "handles nil datetime" do
       raw_data = %{
-        "mrr" => 10000,
+        "mrr" => 10_000,
         "totalActiveSubscriptions" => 5,
         "name" => "Test Store",
-        "totalRevenue" => 50000,
+        "totalRevenue" => 50_000,
         "totalTransactions" => 20,
         "transactionsPerDay" => %{},
         "website" => nil,
@@ -147,7 +147,7 @@ defmodule AbacatePay.PublicMRRTest do
     test "handles large MRR values" do
       raw_data = %{
         "mrr" => 999_999_999,
-        "totalActiveSubscriptions" => 10000,
+        "totalActiveSubscriptions" => 10_000,
         "name" => "Big Store",
         "totalRevenue" => 9_999_999_999,
         "totalTransactions" => 100_000,
@@ -164,16 +164,16 @@ defmodule AbacatePay.PublicMRRTest do
 
     test "handles multiple days in transactions_per_day" do
       raw_data = %{
-        "mrr" => 50000,
+        "mrr" => 50_000,
         "totalActiveSubscriptions" => 10,
         "name" => "Test Store",
         "totalRevenue" => 150_000,
         "totalTransactions" => 45,
         "transactionsPerDay" => %{
-          "2024-01-13" => %{"amount" => 2000, "count" => 1},
-          "2024-01-14" => %{"amount" => 4000, "count" => 2},
-          "2024-01-15" => %{"amount" => 5000, "count" => 3},
-          "2024-01-16" => %{"amount" => 3000, "count" => 2}
+          "2024-01-13" => %{"amount" => 2_000, "count" => 1},
+          "2024-01-14" => %{"amount" => 4_000, "count" => 2},
+          "2024-01-15" => %{"amount" => 5_000, "count" => 3},
+          "2024-01-16" => %{"amount" => 3_000, "count" => 2}
         },
         "website" => "https://example.com",
         "createdAt" => nil
@@ -187,21 +187,21 @@ defmodule AbacatePay.PublicMRRTest do
   describe "build_api_public_mrr/1" do
     test "builds API map from PublicMRR struct" do
       public_mrr = %PublicMRR{
-        mrr: 50000,
+        mrr: 50_000,
         total_active_subscriptions: 10,
         name: "My Store",
         total_revenue: 150_000,
         total_transactions: 45,
         transactions_per_day: %{
-          "2024-01-15" => %{amount: 5000, count: 3},
-          "2024-01-16" => %{amount: 3000, count: 2}
+          "2024-01-15" => %{amount: 5_000, count: 3},
+          "2024-01-16" => %{amount: 3_000, count: 2}
         },
         website: "https://mystore.com",
         created_at: ~U[2023-12-01T12:00:00Z]
       }
 
       assert {:ok, api_map} = PublicMRR.build_api_public_mrr(public_mrr)
-      assert api_map[:mrr] == 50000
+      assert api_map[:mrr] == 50_000
       assert api_map[:totalActiveSubscriptions] == 10
       assert api_map[:name] == "My Store"
       assert api_map[:totalRevenue] == 150_000
@@ -211,21 +211,21 @@ defmodule AbacatePay.PublicMRRTest do
 
     test "handles transactions_per_day conversion to API format" do
       public_mrr = %PublicMRR{
-        mrr: 10000,
+        mrr: 10_000,
         total_active_subscriptions: 5,
         name: "Test Store",
-        total_revenue: 50000,
+        total_revenue: 50_000,
         total_transactions: 20,
         transactions_per_day: %{
-          "2024-01-15" => %{amount: 5000, count: 3},
-          "2024-01-16" => %{amount: 3000, count: 2}
+          "2024-01-15" => %{amount: 5_000, count: 3},
+          "2024-01-16" => %{amount: 3_000, count: 2}
         },
         website: nil,
         created_at: nil
       }
 
       assert {:ok, api_map} = PublicMRR.build_api_public_mrr(public_mrr)
-      assert api_map[:transactionsPerDay]["2024-01-15"]["amount"] == 5000
+      assert api_map[:transactionsPerDay]["2024-01-15"]["amount"] == 5_000
       assert api_map[:transactionsPerDay]["2024-01-15"]["count"] == 3
     end
 
@@ -247,10 +247,10 @@ defmodule AbacatePay.PublicMRRTest do
 
     test "handles datetime conversion" do
       public_mrr = %PublicMRR{
-        mrr: 10000,
+        mrr: 10_000,
         total_active_subscriptions: 5,
         name: "Test Store",
-        total_revenue: 50000,
+        total_revenue: 50_000,
         total_transactions: 20,
         transactions_per_day: %{},
         website: nil,
@@ -263,10 +263,10 @@ defmodule AbacatePay.PublicMRRTest do
 
     test "handles nil datetime" do
       public_mrr = %PublicMRR{
-        mrr: 10000,
+        mrr: 10_000,
         total_active_subscriptions: 5,
         name: "Test Store",
-        total_revenue: 50000,
+        total_revenue: 50_000,
         total_transactions: 20,
         transactions_per_day: %{},
         website: nil,
@@ -281,14 +281,14 @@ defmodule AbacatePay.PublicMRRTest do
   describe "roundtrip conversion" do
     test "converts raw data to struct and back" do
       raw_data = %{
-        "mrr" => 75000,
+        "mrr" => 75_000,
         "totalActiveSubscriptions" => 15,
         "name" => "Roundtrip Store",
         "totalRevenue" => 225_000,
         "totalTransactions" => 60,
         "transactionsPerDay" => %{
-          "2024-01-15" => %{"amount" => 5000, "count" => 3},
-          "2024-01-16" => %{"amount" => 3000, "count" => 2}
+          "2024-01-15" => %{"amount" => 5_000, "count" => 3},
+          "2024-01-16" => %{"amount" => 3_000, "count" => 2}
         },
         "website" => "https://roundtrip.com",
         "createdAt" => "2023-12-01T12:00:00Z"
@@ -305,14 +305,14 @@ defmodule AbacatePay.PublicMRRTest do
 
     test "maintains transactions_per_day through roundtrip" do
       raw_data = %{
-        "mrr" => 50000,
+        "mrr" => 50_000,
         "totalActiveSubscriptions" => 10,
         "name" => "Test Store",
         "totalRevenue" => 150_000,
         "totalTransactions" => 45,
         "transactionsPerDay" => %{
-          "2024-01-15" => %{"amount" => 5000, "count" => 3},
-          "2024-01-16" => %{"amount" => 3000, "count" => 2}
+          "2024-01-15" => %{"amount" => 5_000, "count" => 3},
+          "2024-01-16" => %{"amount" => 3_000, "count" => 2}
         },
         "website" => "https://example.com",
         "createdAt" => nil

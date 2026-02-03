@@ -74,7 +74,7 @@ defmodule AbacatePay.Schema.CouponTest do
       data = [
         code: "DEYVIN_20",
         discount_kind: :fixed,
-        discount: 5000
+        discount: 5_000
       ]
 
       assert {:ok, result} = NimbleOptions.validate(data, Coupon.create_coupon_request())
@@ -96,7 +96,7 @@ defmodule AbacatePay.Schema.CouponTest do
 
     test "rejects non-string code" do
       data = [
-        code: 12345,
+        code: 12_345,
         discount_kind: :percentage,
         discount: 10
       ]
@@ -108,7 +108,7 @@ defmodule AbacatePay.Schema.CouponTest do
     end
 
     test "accepts various discount values for fixed" do
-      valid_discounts = [1, 100, 1000, 10000, 100_000, 1_000_000]
+      valid_discounts = [1, 100, 1_000, 10_000, 100_000, 1_000_000]
 
       Enum.each(valid_discounts, fn discount ->
         data = [
@@ -171,7 +171,7 @@ defmodule AbacatePay.Schema.CouponTest do
     end
 
     test "accepts long notes" do
-      long_notes = String.duplicate("x", 1000)
+      long_notes = String.duplicate("x", 1_000)
 
       data = [
         code: "SUMMER2024",
@@ -189,7 +189,7 @@ defmodule AbacatePay.Schema.CouponTest do
         code: "SUMMER2024",
         discount_kind: :percentage,
         discount: 10,
-        notes: 12345
+        notes: 12_345
       ]
 
       assert {:error, %NimbleOptions.ValidationError{key: key}} =
@@ -285,7 +285,7 @@ defmodule AbacatePay.Schema.CouponTest do
         discount_kind: :percentage,
         discount: 15,
         notes: "Summer promo",
-        max_redeems: 1000,
+        max_redeems: 1_000,
         metadata: %{campaign: "summer"}
       ]
 
@@ -294,7 +294,7 @@ defmodule AbacatePay.Schema.CouponTest do
       assert result[:discount_kind] == :percentage
       assert result[:discount] == 15
       assert result[:notes] == "Summer promo"
-      assert result[:max_redeems] == 1000
+      assert result[:max_redeems] == 1_000
     end
 
     test "handles special characters in code" do

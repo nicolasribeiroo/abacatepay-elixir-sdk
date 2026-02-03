@@ -44,7 +44,7 @@ defmodule AbacatePay.Api.PixTest do
     test "creates a pix QR code with all optional fields" do
       body = %{
         amount: 123,
-        expires_in: 3600,
+        expires_in: 3_600,
         description: "Pagamento do pedido #12345",
         customer: %{
           name: "Daniel Lima",
@@ -154,7 +154,7 @@ defmodule AbacatePay.Api.PixTest do
 
     test "handles unauthorized error" do
       body = %{
-        amount: 10000,
+        amount: 10_000,
         description: "Test"
       }
 
@@ -167,7 +167,7 @@ defmodule AbacatePay.Api.PixTest do
 
     test "handles server error" do
       body = %{
-        amount: 15000,
+        amount: 15_000,
         description: "Server error test"
       }
 
@@ -188,7 +188,7 @@ defmodule AbacatePay.Api.PixTest do
       expected_response = %{
         "id" => pix_id,
         "status" => "PAID",
-        "amount" => 15000
+        "amount" => 15_000
       }
 
       query = URI.encode_query(%{"id" => pix_id})
@@ -197,29 +197,29 @@ defmodule AbacatePay.Api.PixTest do
       assert {:ok, result} = Pix.simulate_payment(pix_id, body)
       assert result["id"] == pix_id
       assert result["status"] == "PAID"
-      assert result["amount"] == 15000
+      assert result["amount"] == 15_000
     end
 
     test "simulates a payment with additional data" do
       pix_id = @default_pix_id
 
       body = %{
-        amount: 25000
+        amount: 25_000
       }
 
       expected_response = %{
         "id" => pix_id,
         "status" => "PAID",
-        "amount" => 25000,
-        "fee" => 2000
+        "amount" => 25_000,
+        "fee" => 80
       }
 
       query = URI.encode_query(%{"id" => pix_id})
       MockHTTPServer.stub_post("/pixQrCode/simulate-payment?" <> query, body, expected_response)
 
       assert {:ok, result} = Pix.simulate_payment(pix_id, body)
-      assert result["fee"] == 2000
-      assert result["amount"] == 25000
+      assert result["fee"] == 80
+      assert result["amount"] == 25_000
     end
 
     test "handles pix not found error" do
@@ -298,7 +298,7 @@ defmodule AbacatePay.Api.PixTest do
       expected_response = %{
         "id" => pix_id,
         "status" => "PENDING",
-        "amount" => 15000,
+        "amount" => 15_000,
         "expiresAt" => "2026-02-02T13:00:00Z",
         "createdAt" => "2026-02-02T10:00:00Z"
       }

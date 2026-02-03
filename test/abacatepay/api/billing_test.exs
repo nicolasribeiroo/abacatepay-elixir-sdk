@@ -19,7 +19,7 @@ defmodule AbacatePay.Api.BillingTest do
             name: "Assinatura de Programa Fitness",
             description: "Acesso ao programa fitness premium por 1 mês.",
             quantity: 2,
-            price: 2000
+            price: 2_000
           }
         ],
         returnUrl: "https://example.com/billing",
@@ -40,7 +40,7 @@ defmodule AbacatePay.Api.BillingTest do
           }
         ],
         "frequency" => "ONE_TIME",
-        "amount" => 4000,
+        "amount" => 4_000,
         "nextBilling" => nil,
         "customer" => nil,
         "allowCoupons" => false,
@@ -51,7 +51,7 @@ defmodule AbacatePay.Api.BillingTest do
 
       assert {:ok, billing} = Billing.create_billing(body)
       assert billing["id"] == @default_billing_id
-      assert billing["amount"] == 4000
+      assert billing["amount"] == 4_000
       assert billing["methods"] == ["PIX"]
       assert billing["url"] == "https://pay.abacatepay.com/#{@default_billing_id}"
       assert billing["frequency"] == "ONE_TIME"
@@ -72,7 +72,7 @@ defmodule AbacatePay.Api.BillingTest do
             name: "Assinatura de Programa Fitness",
             description: "Acesso ao programa fitness premium por 1 mês.",
             quantity: 2,
-            price: 2000
+            price: 2_000
           }
         ],
         returnUrl: "https://example.com/billing",
@@ -106,7 +106,7 @@ defmodule AbacatePay.Api.BillingTest do
           }
         ],
         "frequency" => "ONE_TIME",
-        "amount" => 4000,
+        "amount" => 4_000,
         "nextBilling" => nil,
         "customer" => %{
           "id" => @default_customer_id,
@@ -125,7 +125,7 @@ defmodule AbacatePay.Api.BillingTest do
 
       assert {:ok, billing} = Billing.create_billing(body)
       assert billing["id"] == @default_billing_id
-      assert billing["amount"] == 4000
+      assert billing["amount"] == 4_000
       assert billing["methods"] == ["PIX"]
       assert billing["url"] == "https://pay.abacatepay.com/#{@default_billing_id}"
       assert billing["frequency"] == "ONE_TIME"
@@ -198,7 +198,7 @@ defmodule AbacatePay.Api.BillingTest do
             }
           ],
           "frequency" => "ONE_TIME",
-          "amount" => 4000,
+          "amount" => 4_000,
           "nextBilling" => nil,
           "customer" => %{
             "id" => @default_customer_id,
@@ -226,7 +226,7 @@ defmodule AbacatePay.Api.BillingTest do
             }
           ],
           "frequency" => "MULTIPLE_PAYMENTS",
-          "amount" => 15000,
+          "amount" => 15_000,
           "nextBilling" => "2024-07-15T10:00:00Z",
           "customer" => nil,
           "allowCoupons" => true,
@@ -258,7 +258,7 @@ defmodule AbacatePay.Api.BillingTest do
             }
           ],
           "frequency" => "ONE_TIME",
-          "amount" => 6000,
+          "amount" => 6_000,
           "nextBilling" => nil,
           "customer" => %{
             "id" => @default_customer_id,
@@ -353,7 +353,7 @@ defmodule AbacatePay.Api.BillingTest do
     test "lists billings with various amounts" do
       expected_response = [
         %{"id" => "bill_min", "amount" => 100},
-        %{"id" => "bill_mid", "amount" => 50000},
+        %{"id" => "bill_mid", "amount" => 50_000},
         %{"id" => "bill_max", "amount" => 9_999_999}
       ]
 
@@ -362,7 +362,7 @@ defmodule AbacatePay.Api.BillingTest do
       assert {:ok, billings} = Billing.list_billings()
       amounts = Enum.map(billings, &Map.get(&1, "amount"))
       assert 100 in amounts
-      assert 50000 in amounts
+      assert 50_000 in amounts
       assert 9_999_999 in amounts
     end
   end

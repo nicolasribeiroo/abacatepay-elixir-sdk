@@ -8,14 +8,14 @@ defmodule AbacatePay.ProductTest do
       product = %Product{
         external_id: "prod_12345",
         quantity: 2,
-        price: 1500,
+        price: 1_500,
         description: "Test product description",
         name: "Test Product"
       }
 
       assert product.external_id == "prod_12345"
       assert product.quantity == 2
-      assert product.price == 1500
+      assert product.price == 1_500
       assert product.description == "Test product description"
       assert product.name == "Test Product"
     end
@@ -36,7 +36,7 @@ defmodule AbacatePay.ProductTest do
       raw_data = %{
         "externalId" => "prod_12345",
         "quantity" => 2,
-        "price" => 1500,
+        "price" => 1_500,
         "description" => "Test product description",
         "name" => "Test Product"
       }
@@ -44,7 +44,7 @@ defmodule AbacatePay.ProductTest do
       assert {:ok, product} = Product.build_pretty_product(raw_data)
       assert product.external_id == "prod_12345"
       assert product.quantity == 2
-      assert product.price == 1500
+      assert product.price == 1_500
       assert product.description == "Test product description"
       assert product.name == "Test Product"
     end
@@ -53,7 +53,7 @@ defmodule AbacatePay.ProductTest do
       raw_data = %{
         "externalId" => "prod_12345",
         "quantity" => 2,
-        "price" => 1500,
+        "price" => 1_500,
         "name" => "Test Product"
       }
 
@@ -65,7 +65,7 @@ defmodule AbacatePay.ProductTest do
       raw_data = %{
         "externalId" => "prod_12345",
         "quantity" => 0,
-        "price" => 1500,
+        "price" => 1_500,
         "name" => "Test Product"
       }
 
@@ -76,13 +76,13 @@ defmodule AbacatePay.ProductTest do
     test "handles large values" do
       raw_data = %{
         "externalId" => "prod_12345",
-        "quantity" => 1000,
+        "quantity" => 1_000,
         "price" => 999_999_999,
         "name" => "Expensive Product"
       }
 
       assert {:ok, product} = Product.build_pretty_product(raw_data)
-      assert product.quantity == 1000
+      assert product.quantity == 1_000
       assert product.price == 999_999_999
     end
 
@@ -90,7 +90,7 @@ defmodule AbacatePay.ProductTest do
       raw_data = %{
         "externalId" => "prod-2024_special!",
         "quantity" => 1,
-        "price" => 1000,
+        "price" => 1_000,
         "description" => "Product with € symbol",
         "name" => "Special Product #1"
       }
@@ -106,7 +106,7 @@ defmodule AbacatePay.ProductTest do
       product = %Product{
         external_id: "prod_12345",
         quantity: 2,
-        price: 1500,
+        price: 1_500,
         description: "Test product description",
         name: "Test Product"
       }
@@ -114,7 +114,7 @@ defmodule AbacatePay.ProductTest do
       assert {:ok, api_map} = Product.build_api_product(product)
       assert api_map[:externalId] == "prod_12345"
       assert api_map[:quantity] == 2
-      assert api_map[:price] == 1500
+      assert api_map[:price] == 1_500
       assert api_map[:description] == "Test product description"
       assert api_map[:name] == "Test Product"
     end
@@ -123,7 +123,7 @@ defmodule AbacatePay.ProductTest do
       product = %Product{
         external_id: "prod_12345",
         quantity: 1,
-        price: 1000,
+        price: 1_000,
         description: nil,
         name: "Test Product"
       }
@@ -136,7 +136,7 @@ defmodule AbacatePay.ProductTest do
       product = %Product{
         external_id: "prod_ABC",
         quantity: 10,
-        price: 50000,
+        price: 50_000,
         description: "Premium product",
         name: "Premium"
       }
@@ -151,7 +151,7 @@ defmodule AbacatePay.ProductTest do
       raw_data = %{
         "externalId" => "prod_roundtrip",
         "quantity" => 5,
-        "price" => 2500,
+        "price" => 2_500,
         "description" => "Roundtrip test",
         "name" => "Test Product"
       }

@@ -11,10 +11,10 @@ defmodule AbacatePay.Schema.PixTest do
     end
 
     test "validates with only required amount field" do
-      data = [amount: 10000]
+      data = [amount: 10_000]
 
       assert {:ok, result} = NimbleOptions.validate(data, Pix.create_pix_request())
-      assert result[:amount] == 10000
+      assert result[:amount] == 10_000
     end
 
     test "rejects missing amount" do
@@ -27,7 +27,7 @@ defmodule AbacatePay.Schema.PixTest do
     end
 
     test "accepts various valid amounts" do
-      valid_amounts = [1, 100, 10000, 50000, 999_999_999, 1_000_000_000]
+      valid_amounts = [1, 100, 10_000, 50_000, 999_999_999, 1_000_000_000]
 
       Enum.each(valid_amounts, fn amount ->
         data = [amount: amount]
@@ -40,15 +40,13 @@ defmodule AbacatePay.Schema.PixTest do
       data = [amount: 0]
 
       # NimbleOptions doesn't validate zero by default, so this should pass
-      # TODO: Add custom validation
       assert {:ok, _} = NimbleOptions.validate(data, Pix.create_pix_request())
     end
 
     test "rejects negative amount" do
-      data = [amount: -10000]
+      data = [amount: -10_000]
 
       # NimbleOptions doesn't validate negative by default, so this should pass
-      # TODO: Add custom validation
       assert {:ok, _} = NimbleOptions.validate(data, Pix.create_pix_request())
     end
 
@@ -72,7 +70,7 @@ defmodule AbacatePay.Schema.PixTest do
 
     test "accepts optional description" do
       data = [
-        amount: 10000,
+        amount: 10_000,
         description: "Payment for order #123"
       ]
 
@@ -82,7 +80,7 @@ defmodule AbacatePay.Schema.PixTest do
 
     test "accepts empty description" do
       data = [
-        amount: 10000,
+        amount: 10_000,
         description: ""
       ]
 
@@ -90,10 +88,10 @@ defmodule AbacatePay.Schema.PixTest do
     end
 
     test "accepts long description" do
-      long_desc = String.duplicate("x", 1000)
+      long_desc = String.duplicate("x", 1_000)
 
       data = [
-        amount: 10000,
+        amount: 10_000,
         description: long_desc
       ]
 
@@ -103,8 +101,8 @@ defmodule AbacatePay.Schema.PixTest do
 
     test "rejects non-string description" do
       data = [
-        amount: 10000,
-        description: 12345
+        amount: 10_000,
+        description: 12_345
       ]
 
       assert {:error, %NimbleOptions.ValidationError{key: key}} =
@@ -115,7 +113,7 @@ defmodule AbacatePay.Schema.PixTest do
 
     test "accepts optional customer" do
       data = [
-        amount: 10000,
+        amount: 10_000,
         customer: %AbacatePay.Customer{
           name: "Daniel Lima",
           email: "daniel_lima@abacatepay.com",
@@ -130,7 +128,7 @@ defmodule AbacatePay.Schema.PixTest do
 
     test "accepts customer as struct" do
       data = [
-        amount: 10000,
+        amount: 10_000,
         customer: %AbacatePay.Customer{
           name: "Daniel Lima",
           cellphone: "(11) 4002-8922",
@@ -146,7 +144,7 @@ defmodule AbacatePay.Schema.PixTest do
 
     test "rejects non-map customer" do
       data = [
-        amount: 10000,
+        amount: 10_000,
         customer: "not a map"
       ]
 
@@ -158,19 +156,19 @@ defmodule AbacatePay.Schema.PixTest do
 
     test "accepts optional expires_in" do
       data = [
-        amount: 10000,
-        expires_in: 3600
+        amount: 10_000,
+        expires_in: 3_600
       ]
 
       assert {:ok, result} = NimbleOptions.validate(data, Pix.create_pix_request())
-      assert result[:expires_in] == 3600
+      assert result[:expires_in] == 3_600
     end
 
     test "accepts various expires_in values" do
-      valid_expires = [60, 300, 3600, 86400, 604_800]
+      valid_expires = [60, 300, 3_600, 86_400, 604_800]
 
       Enum.each(valid_expires, fn expires ->
-        data = [amount: 10000, expires_in: expires]
+        data = [amount: 10_000, expires_in: expires]
         assert {:ok, result} = NimbleOptions.validate(data, Pix.create_pix_request())
         assert result[:expires_in] == expires
       end)
@@ -178,7 +176,7 @@ defmodule AbacatePay.Schema.PixTest do
 
     test "rejects non-integer expires_in" do
       data = [
-        amount: 10000,
+        amount: 10_000,
         expires_in: "3600"
       ]
 
@@ -190,7 +188,7 @@ defmodule AbacatePay.Schema.PixTest do
 
     test "rejects float expires_in" do
       data = [
-        amount: 10000,
+        amount: 10_000,
         expires_in: 36.00
       ]
 
@@ -202,7 +200,7 @@ defmodule AbacatePay.Schema.PixTest do
 
     test "accepts optional metadata map" do
       data = [
-        amount: 10000,
+        amount: 10_000,
         metadata: %{order_id: "123", user_id: "456"}
       ]
 
@@ -212,7 +210,7 @@ defmodule AbacatePay.Schema.PixTest do
 
     test "accepts empty metadata map" do
       data = [
-        amount: 10000,
+        amount: 10_000,
         metadata: %{}
       ]
 
@@ -222,7 +220,7 @@ defmodule AbacatePay.Schema.PixTest do
 
     test "accepts metadata with various types" do
       data = [
-        amount: 10000,
+        amount: 10_000,
         metadata: %{
           string: "value",
           number: 123,
@@ -240,7 +238,7 @@ defmodule AbacatePay.Schema.PixTest do
 
     test "rejects non-map metadata" do
       data = [
-        amount: 10000,
+        amount: 10_000,
         metadata: "not a map"
       ]
 
@@ -252,7 +250,7 @@ defmodule AbacatePay.Schema.PixTest do
 
     test "accepts all fields together" do
       data = [
-        amount: 10000,
+        amount: 10_000,
         description: "Order payment",
         customer: %AbacatePay.Customer{
           name: "Daniel Lima",
@@ -260,19 +258,19 @@ defmodule AbacatePay.Schema.PixTest do
           email: "daniel_lima@abacatepay.com",
           tax_id: "123.456.789-01"
         },
-        expires_in: 3600,
+        expires_in: 3_600,
         metadata: %{order_id: "123"}
       ]
 
       assert {:ok, result} = NimbleOptions.validate(data, Pix.create_pix_request())
-      assert result[:amount] == 10000
+      assert result[:amount] == 10_000
       assert result[:description] == "Order payment"
-      assert result[:expires_in] == 3600
+      assert result[:expires_in] == 3_600
     end
 
     test "validates with keyword list data" do
       data = [
-        amount: 10000,
+        amount: 10_000,
         description: "Payment",
         metadata: %{id: "123"}
       ]
@@ -282,7 +280,7 @@ defmodule AbacatePay.Schema.PixTest do
 
     test "handles special characters in description" do
       data = [
-        amount: 10000,
+        amount: 10_000,
         description: "Payment for product: €100 #special!"
       ]
 
@@ -292,7 +290,7 @@ defmodule AbacatePay.Schema.PixTest do
 
     test "rejects metadata with string keys" do
       data = [
-        amount: 10000,
+        amount: 10_000,
         metadata: %{"order_id" => "123", "user" => "john"}
       ]
 
