@@ -23,7 +23,7 @@ The package can be installed by adding `abacatepay` to your list of dependencies
 ```elixir
 def deps do
   [
-    {:abacatepay, git: "https://github.com/AbacatePay/abacatepay-elixir-sdk", branch: "main", override: true}
+    {:abacatepay, "~> 0.2.0"}
   ]
 end
 ```
