@@ -3,19 +3,9 @@ defmodule AbacatePay.HTTPClient do
   HTTP client for making requests to the AbacatePay API.
   """
 
+  alias AbacatePay.Config
+
   @user_agent "Elixir-SDK (#{Mix.Project.config()[:source_url]}, #{Mix.Project.config()[:version]})"
-
-  defp api_url do
-    Application.get_env(:abacatepay, :api_url, "https://api.abacatepay.com")
-  end
-
-  defp api_version do
-    Application.get_env(:abacatepay, :api_version, "1")
-  end
-
-  defp api_key do
-    Application.get_env(:abacatepay, :api_key, nil)
-  end
 
   @doc """
   Performs a GET request to the API.
@@ -119,28 +109,36 @@ defmodule AbacatePay.HTTPClient do
 
   @doc false
   defp build_request(path, method) do
-    url = "#{api_url()}/v#{api_version()}" <> path
+    api_url = Config.api_url()
+    api_version = Config.api_version()
+    api_key = Config.api_key()
+
+    url = "#{api_url}/v#{api_version}" <> path
 
     headers =
       [
         {"Content-Type", "application/json"},
         {"Accept", "application/json"},
         {"User-Agent", @user_agent}
-      ] ++ if api_key(), do: [{"Authorization", "Bearer #{api_key()}"}], else: []
+      ] ++ if api_key, do: [{"Authorization", "Bearer #{api_key}"}], else: []
 
     Finch.build(method, url, headers)
   end
 
   @doc false
   defp build_request(path, method, body) do
-    url = "#{api_url()}/v#{api_version()}" <> path
+    api_url = Config.api_url()
+    api_version = Config.api_version()
+    api_key = Config.api_key()
+
+    url = "#{api_url}/v#{api_version}" <> path
 
     headers =
       [
         {"Content-Type", "application/json"},
         {"Accept", "application/json"},
         {"User-Agent", @user_agent}
-      ] ++ if api_key(), do: [{"Authorization", "Bearer #{api_key()}"}], else: []
+      ] ++ if api_key, do: [{"Authorization", "Bearer #{api_key}"}], else: []
 
     Finch.build(method, url, headers, Jason.encode!(body))
   end
