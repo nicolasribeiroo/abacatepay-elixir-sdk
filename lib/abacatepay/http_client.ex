@@ -15,6 +15,7 @@ defmodule AbacatePay.HTTPClient do
       iex> AbacatePay.Api.get("/customers/list")
       {:ok, [%{...}, ...]}
   """
+  @spec get(path :: String.t()) :: {:ok, any(), map()} | {:error, any()}
   def get(path) do
     path
     |> build_request(:get)
@@ -36,6 +37,7 @@ defmodule AbacatePay.HTTPClient do
       iex> AbacatePay.Api.post("/customers/create", %{name: "Daniel Lima", cellphone: "(11) 4002-8922", email: "daniel_lima@abacatepay.com", taxId: "123.456.789-01"})
       {:ok, %{...}}
   """
+  @spec post(path :: String.t(), body :: map()) :: {:ok, any()} | {:error, any()}
   def post(path, body) do
     path
     |> build_request(:post, body)
@@ -52,6 +54,7 @@ defmodule AbacatePay.HTTPClient do
   @doc """
   Performs a PUT request to the API.
   """
+  @spec put(path :: String.t(), body :: map()) :: {:ok, any()} | {:error, any()}
   def put(path, body) do
     path
     |> build_request(:put, body)
@@ -68,6 +71,7 @@ defmodule AbacatePay.HTTPClient do
   @doc """
   Performs a DELETE request to the API.
   """
+  @spec delete(path :: String.t()) :: {:ok, any()} | {:error, any()}
   def delete(path) do
     path
     |> build_request(:delete)
@@ -91,6 +95,9 @@ defmodule AbacatePay.HTTPClient do
     case Jason.decode(body) do
       {:ok, decoded} ->
         case decoded do
+          %{"data" => data, "pagination" => pagination} when data != nil and pagination != nil ->
+            {:ok, data, pagination}
+
           %{"data" => data} when data != nil ->
             {:ok, data}
 
@@ -102,12 +109,13 @@ defmodule AbacatePay.HTTPClient do
              %AbacatePay.ApiError{status_code: status, message: "Unexpected response format"}}
         end
 
-      {:error, %Jason.DecodeError{data: error_message}} ->
-        {:error, %AbacatePay.ApiError{status_code: status, message: error_message}}
+      {:error, %Jason.DecodeError{data: message}} ->
+        {:error, %AbacatePay.ApiError{status_code: status, message: message}}
     end
   end
 
   @doc false
+  @spec build_request(path :: String.t(), method :: atom()) :: Finch.Request.t()
   defp build_request(path, method) do
     api_url = Config.api_url()
     api_version = Config.api_version()
@@ -126,6 +134,7 @@ defmodule AbacatePay.HTTPClient do
   end
 
   @doc false
+  @spec build_request(path :: String.t(), method :: atom(), body :: map()) :: Finch.Request.t()
   defp build_request(path, method, body) do
     api_url = Config.api_url()
     api_version = Config.api_version()

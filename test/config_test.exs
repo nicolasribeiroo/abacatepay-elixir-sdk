@@ -25,8 +25,8 @@ defmodule AbacatePay.ConfigTest do
     end
 
     test ":api_version from option" do
-      assert Config.validate!(api_version: "2")[:api_version] == "2"
-      assert Config.validate!()[:api_version] == "1"
+      assert Config.validate!(api_version: "1")[:api_version] == "1"
+      assert Config.validate!()[:api_version] == "2"
     end
 
     test ":api_version from system environment" do

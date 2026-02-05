@@ -106,7 +106,7 @@ defmodule AbacatePay.Pix do
       {:ok, validated_options} ->
         parsed_customer =
           with %Customer{} = customer_struct <- validated_options[:customer],
-               {:ok, customer_map} <- Customer.build_api_customer(customer_struct) do
+               {:ok, customer_map} <- Customer.build_raw(customer_struct) do
             customer_map.metadata
           else
             _ -> nil

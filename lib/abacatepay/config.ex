@@ -13,7 +13,7 @@ defmodule AbacatePay.Config do
     ],
     api_version: [
       type: :string,
-      default: "1",
+      default: "2",
       type_doc: "`t:String.t/0`",
       required: false,
       doc: "The API version to use."
