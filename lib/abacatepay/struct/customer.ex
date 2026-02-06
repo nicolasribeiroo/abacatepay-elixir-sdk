@@ -3,7 +3,7 @@ defmodule AbacatePay.Customer do
   Struct representing an AbacatePay customer.
   """
 
-  alias AbacatePay.{Api, Pagination, Schema}
+  alias AbacatePay.{Api, ApiError, Pagination, Schema}
 
   defstruct [
     :id,
@@ -106,7 +106,7 @@ defmodule AbacatePay.Customer do
 
   Options: \n#{NimbleOptions.docs(Schema.Customer.list_customers_request())}
   """
-  @spec get(customer_id :: id()) :: {:ok, t()} | {:error, any()}
+  @spec get(customer_id :: id()) :: {:ok, t()} | {:error, ApiError.t()} | {:error, any()}
   def get(customer_id) do
     with {:ok, response} <- Api.Customer.get(customer_id) do
       build_struct(response)
@@ -120,7 +120,8 @@ defmodule AbacatePay.Customer do
       iex> AbacatePay.Customer.list(page: 2, limit: 10)
       {:ok, [%AbacatePay.Customer{id: "cust_aebxkhDZNaMmJeKsy0AHS0FQ", name: "Daniel Lima", ...}, ...], %{page: 2, limit: 10}}
   """
-  @spec list(options :: keyword()) :: {:ok, list(t()), map()} | {:error, any()}
+  @spec list(options :: keyword()) ::
+          {:ok, list(t()), map()} | {:error, ApiError.t()} | {:error, any()}
   def list(options) do
     {:ok, validated_options} =
       NimbleOptions.validate(options, Schema.Customer.list_customers_request())
@@ -145,7 +146,7 @@ defmodule AbacatePay.Customer do
       iex> AbacatePay.Customer.list()
       {:ok, [%AbacatePay.Customer{id: "cust_aebxkhDZNaMmJeKsy0AHS0FQ", name: "Daniel Lima", ...}, ...], %{page: 1, limit: 20}}
   """
-  @spec list() :: {:ok, list(t()), map()} | {:error, any()}
+  @spec list() :: {:ok, list(t()), map()} | {:error, ApiError.t()} | {:error, any()}
   def list do
     list(page: 1, limit: 20)
   end
@@ -184,14 +185,6 @@ defmodule AbacatePay.Customer do
 
     {:ok, pretty_fields}
   end
-
-  @doc false
-  defp build_struct_metadata(metadata) when is_map(metadata) do
-    Map.new(metadata, fn {k, v} -> {String.to_atom(k), v} end)
-  end
-
-  @doc false
-  defp build_struct_metadata(nil), do: nil
 
   @doc """
   Builds a map suitable for the API from a `AbacatePay.Customer` struct.
@@ -239,10 +232,16 @@ defmodule AbacatePay.Customer do
   end
 
   @doc false
-  defp build_raw_metadata(metadata) when is_map(metadata) do
-    Map.new(metadata, fn {k, v} -> {Atom.to_string(k), v} end)
-  end
+  defp build_struct_metadata(nil), do: nil
+
+  @doc false
+  defp build_struct_metadata(metadata) when is_map(metadata),
+    do: Map.new(metadata, fn {k, v} -> {String.to_atom(k), v} end)
 
   @doc false
   defp build_raw_metadata(nil), do: nil
+
+  @doc false
+  defp build_raw_metadata(metadata) when is_map(metadata),
+    do: Map.new(metadata, fn {k, v} -> {Atom.to_string(k), v} end)
 end
